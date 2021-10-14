@@ -1,4 +1,4 @@
-import { IUserRepository } from "./repository";
+import { IUserRepository } from "./types";
 
 class UserService {
   private userRepository: IUserRepository;
