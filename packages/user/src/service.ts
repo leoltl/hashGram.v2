@@ -7,8 +7,12 @@ class UserService {
     this.userRepository = userRepository;
   }
 
-  async createAccount() {
-
+  async userById(id: string) {
+    return await this.userRepository.get(id);
   }
   
 }
+
+export type IUserService = UserService;
+
+export default UserService;

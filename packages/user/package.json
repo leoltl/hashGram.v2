@@ -10,11 +10,18 @@
     "test": "echo \"Error: run tests from root\" && exit 1",
     "build": "tsc",
     "start": "yarn build && node dist/index.js",
-    "watch": "tsc-watch --onSuccess \"node dist/index.js\""
+    "watch": "yarn codegen && tsc-watch --onSuccess \"node dist/index.js\"",
+    "codegen": "yarn graphql-codegen"
   },
   "dependencies": {
+    "@graphql-codegen/cli": "^2.2.1",
+    "@graphql-codegen/typescript": "^2.2.4",
+    "@graphql-codegen/typescript-resolvers": "^2.3.2",
     "@prisma/client": "^3.2.1",
-    "express": "^4.17.1"
+    "apollo-server-core": "^3.4.0",
+    "apollo-server-express": "^3.4.0",
+    "express": "^4.17.1",
+    "graphql": "^15.6.1"
   },
   "devDependencies": {
     "prisma": "^3.2.1",
