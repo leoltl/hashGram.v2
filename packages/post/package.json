@@ -1,0 +1,17 @@
+{
+  "name": "@leoltl/post",
+  "version": "0.0.0",
+  "description": "> TODO: description",
+  "author": "Leo Lee <leo@brokerbay.ca>",
+  "homepage": "",
+  "license": "ISC",
+  "main": "dist/index.js",
+  "scripts": {
+    "test": "echo \"Error: run tests from root\" && exit 1",
+    "start": "node src/post.js"
+  },
+  "dependencies": {
+    "express": "^4.17.1",
+    "tsc": "^2.0.3"
+  }
+}
