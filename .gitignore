@@ -2,3 +2,5 @@
 **/.env
 **/**-debug.log
 .DS_Store
+
+**/dist

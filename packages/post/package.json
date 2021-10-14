@@ -8,10 +8,14 @@
   "main": "dist/index.js",
   "scripts": {
     "test": "echo \"Error: run tests from root\" && exit 1",
-    "start": "node src/post.js"
+    "build": "tsc",
+    "start": "yarn build && node dist/index.js",
+    "watch": "tsc-watch --onSuccess \"node dist/index.js\""
   },
   "dependencies": {
-    "express": "^4.17.1",
-    "tsc": "^2.0.3"
+    "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "tsc-watch": "^4.5.0"
   }
 }
