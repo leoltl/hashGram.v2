@@ -31,8 +31,7 @@ async function user() {
 	const app = express();
 
 	app.get('/', async (req, res) => {
-		const result = prisma.user.findMany();
-		res.send(`hi from user ${JSON.stringify(result)}`)
+		res.send(`hi from user`)
 	});
 	
 	await startApolloServer(app, loadServices());
