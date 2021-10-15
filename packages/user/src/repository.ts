@@ -21,7 +21,7 @@ class UserRepository implements IUserRepository {
     return users;
   }
 
-  async create(user: User) {
+  async create(user: Omit<User, "id">) {
     const savedUser = await this.UserDb.create({ 
       data: user 
     });

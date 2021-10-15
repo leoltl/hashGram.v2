@@ -3,7 +3,7 @@ import { User } from "@prisma/client";
 export interface IUserRepository {
   get: (id: string) => Promise<User | null>
   getAll: () => Promise<User[]>
-  create: (user: User) => Promise<User>
+  create: (user: Omit<User, "id">) => Promise<User>
   update: (id: string, user: Partial<User>) => Promise<User | null>
   delete: (id: string) => Promise<string>
 }

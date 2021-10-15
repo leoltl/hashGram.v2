@@ -9,8 +9,19 @@ extend type Query {
   userById(id: String!): User
 }
 
+extend type Mutation {
+  signUp(input: SignUpInput!): User!
+}
+
 type User {
   id: ID!
   name: String
   email: String!
+}
+
+input SignUpInput {
+  name: String
+  email: String!
+  password: String!
+  passwordConfirm: String!
 }

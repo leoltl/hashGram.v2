@@ -17,6 +17,12 @@ export type Scalars = {
 export type Mutation = {
   __typename?: 'Mutation';
   _?: Maybe<Scalars['String']>;
+  signUp: User;
+};
+
+
+export type MutationSignUpArgs = {
+  input: SignUpInput;
 };
 
 export type Query = {
@@ -28,6 +34,13 @@ export type Query = {
 
 export type QueryUserByIdArgs = {
   id: Scalars['String'];
+};
+
+export type SignUpInput = {
+  email: Scalars['String'];
+  name?: Maybe<Scalars['String']>;
+  password: Scalars['String'];
+  passwordConfirm: Scalars['String'];
 };
 
 export type User = {
@@ -110,6 +123,7 @@ export type ResolversTypes = {
   ID: ResolverTypeWrapper<Scalars['ID']>;
   Mutation: ResolverTypeWrapper<{}>;
   Query: ResolverTypeWrapper<{}>;
+  SignUpInput: SignUpInput;
   String: ResolverTypeWrapper<Scalars['String']>;
   User: ResolverTypeWrapper<User>;
 };
@@ -120,12 +134,14 @@ export type ResolversParentTypes = {
   ID: Scalars['ID'];
   Mutation: {};
   Query: {};
+  SignUpInput: SignUpInput;
   String: Scalars['String'];
   User: User;
 };
 
 export type MutationResolvers<ContextType = RequestContext, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = {
   _?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  signUp?: Resolver<ResolversTypes['User'], ParentType, ContextType, RequireFields<MutationSignUpArgs, 'input'>>;
 };
 
 export type QueryResolvers<ContextType = RequestContext, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
