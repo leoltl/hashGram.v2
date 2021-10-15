@@ -8,10 +8,16 @@ import { schema } from "./graphql";
 import UserRepository from "./repository";
 import UserService from "./service";
 
-import type { Express } from 'express';
+import type { Express, Request } from 'express';
 import TokenManager from "./utils/TokenManager";
 
 const PORT = servicesMap.USER.port;
+
+interface JWTUser {
+	id: string
+	name: string
+	email: string
+}
 
 function loadServices() {
 	const repository = new UserRepository(prisma.user);
@@ -19,8 +25,13 @@ function loadServices() {
 	return { userService };
 }
 
-function createRequestContext (services: ServicesContext) {
-	return { ...services, tokenManager: new TokenManager() };
+function createRequestContext(services: ServicesContext, req: Request) {
+	const stringifiedUserOrNull = req.headers.user as string;
+	return { 
+		...services, 
+		tokenManager: new TokenManager(),
+		user: JSON.parse(stringifiedUserOrNull) as JWTUser,
+	};
 }
 
 type ServicesContext = ReturnType<typeof loadServices>;
@@ -44,7 +55,7 @@ async function startApolloServer(app: Express, services: ServicesContext) {
 	const server = new ApolloServer({
 		schema,
 		plugins: [ApolloServerPluginDrainHttpServer({ httpServer })],
-		context: () => createRequestContext(services),
+		context: ({ req }) => createRequestContext(services, req),
 	});
 
 	await server.start();
