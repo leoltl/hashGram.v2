@@ -1,7 +1,7 @@
-import { User } from "@prisma/client";
+import { Prisma, User } from "@prisma/client";
 
 export interface IUserRepository {
-  get: (id: string) => Promise<User | null>
+  get: (where: Prisma.UserWhereUniqueInput) => Promise<User | null>
   getAll: () => Promise<User[]>
   create: (user: Omit<User, "id">) => Promise<User>
   update: (id: string, user: Partial<User>) => Promise<User | null>

@@ -8,6 +8,7 @@ import UserRepository from "./repository";
 import UserService from "./service";
 
 import type { Express } from 'express';
+import TokenManager from "./utils/TokenManager";
 
 const PORT = 3002;
 
@@ -19,7 +20,7 @@ function loadServices() {
 }
 
 function createRequestContext (services: ServicesContext) {
-	return { ...services };
+	return { ...services, tokenManager: new TokenManager() };
 }
 
 type ServicesContext = ReturnType<typeof loadServices>;

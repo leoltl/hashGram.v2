@@ -11,12 +11,23 @@ extend type Query {
 
 extend type Mutation {
   signUp(input: SignUpInput!): User!
+  signIn(input: SignInInput!): SignInResult!
 }
 
 type User {
   id: ID!
   name: String
   email: String!
+}
+
+type SignInResult {
+  token: String
+  message: String
+}
+
+input SignInInput {
+  email: String!
+  password: String!
 }
 
 input SignUpInput {

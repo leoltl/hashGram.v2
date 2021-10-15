@@ -1,4 +1,7 @@
-export interface BaseUser {
+import { classToPlain, ClassTransformOptions } from "class-transformer";
+import type { User as GqlUserType } from "../resolvers-types";
+
+export abstract class BaseUser {
   
   id: string;
   
@@ -12,4 +15,7 @@ export interface BaseUser {
 
   createdAt: Date;
 
+  serialize(options?: ClassTransformOptions) {
+    return classToPlain(this, options) as GqlUserType;
+  }
 }

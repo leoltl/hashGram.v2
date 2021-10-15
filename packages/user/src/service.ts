@@ -1,12 +1,12 @@
 import bcrypt from "bcrypt";
-import { classToPlain, plainToClass } from "class-transformer";
+import { ClassTransformOptions, plainToClass } from "class-transformer";
 import { uuid } from "./utils";
 import { Admin as AdminCls, User as UserCls } from "./entities";
-import { QueryResolvers, SignUpInput, User as GqlUserType } from "./resolvers-types";
-import { IUserRepository } from "./types";
-import { Prisma, User } from ".prisma/client";
 import { PrismaErrorHandler } from "./utils/errorHandler";
 
+import type { IUserRepository } from "./types";
+import type { SignUpInput } from "./resolvers-types";
+import type { User } from ".prisma/client";
 class UserService {
   private userRepository: IUserRepository;
 
@@ -15,7 +15,7 @@ class UserService {
   }
 
   async userById(id: string) {
-    const user = await this.userRepository.get(id);
+    const user = await this.userRepository.get({ id });
     
     if (user === null) {
       return null;
@@ -23,7 +23,7 @@ class UserService {
 
     const userCls = this.instantiateUser(user);
 
-    return classToPlain(userCls) as GqlUserType;
+    return userCls.serialize();
   }
   
   async signUp(input: SignUpInput) {
@@ -56,19 +56,37 @@ class UserService {
 
     const userCls = this.instantiateUser(result);
 
-    return classToPlain(userCls) as GqlUserType;
+    return userCls.serialize();
+  }
+
+  async signIn(email: string, password: string) {
+    const result = await this.userRepository.get({ email });
+
+    if (result === null) return null;
+
+    const user = this.instantiateUser(result, { groups: ['auth']});
+
+    if (await this.isCorrectPassword(password, user.passwordHash)) {
+      return user.serialize();
+    }
+
+    return null;
   }
 
   private async hashPassword(plainText: string) {
     return await bcrypt.hash(plainText, 10);
   }
 
-  private instantiateUser(plainUser: User) {
+  private async isCorrectPassword(plainPassword: string, passwordHash: string) {
+    return await bcrypt.compare(plainPassword, passwordHash);
+  }
+
+  private instantiateUser(plainUser: User, options?: ClassTransformOptions) {
     let user: AdminCls | UserCls;
     if (plainUser?.role === 'ADMIN') {
-      user = plainToClass(AdminCls, plainUser);
+      user = plainToClass(AdminCls, plainUser, options);
     } else {
-      user = plainToClass(UserCls, plainUser);
+      user = plainToClass(UserCls, plainUser, options);
     }
     return user;
   }

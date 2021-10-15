@@ -1,7 +1,7 @@
 import { Exclude, Expose } from "class-transformer";
-import type { BaseUser } from "./BaseUser";
+import { BaseUser } from "./BaseUser";
 
-export class Admin implements BaseUser {
+export class Admin extends BaseUser {
   
   id: string;
   

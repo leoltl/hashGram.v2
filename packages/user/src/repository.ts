@@ -1,17 +1,16 @@
-import { PrismaClient, User } from ".prisma/client";
+import { Prisma, PrismaClient, User } from ".prisma/client";
 import { IUserRepository } from "./types";
 
 class UserRepository implements IUserRepository {
-  private UserDb: PrismaClient["user"];
 
-  constructor(UserDb: PrismaClient["user"]) {
-    this.UserDb = UserDb;
-  }
+  constructor(
+    private UserDb: PrismaClient["user"]
+  ) {}
 
-  async get(id: string) {
-    const user = await this.UserDb.findUnique({ 
-      where: { id }
-    });
+  async get(where: Prisma.UserWhereUniqueInput) {
+    const user = await this.UserDb.findUnique(
+      { where }
+    );
     if (user?.isDeleted) return null;
     return user;
   }
