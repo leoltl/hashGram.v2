@@ -1,5 +1,10 @@
-import { IUserService } from "../service";
 import type { Resolvers } from "../resolvers-types";
+
+const User: Resolvers['User'] = {
+  async __resolveReference(object, { userService }) {
+    return userService.userById(object.id)
+  }
+}
 
 const Query: Resolvers["Query"] = {
   async userById(_, args, { userService }) {
@@ -32,4 +37,5 @@ const Mutation: Resolvers["Mutation"] = {
 export const resolvers = {
   Query,
   Mutation,
+  User,
 };

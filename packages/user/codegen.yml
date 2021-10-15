@@ -3,6 +3,7 @@ generates:
   ./src/resolvers-types.ts:
     config:
       contextType: ./index#RequestContext
+      federation: true
     plugins:
       - typescript
       - typescript-resolvers

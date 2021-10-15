@@ -1,0 +1,23 @@
+{
+  "name": "@leoltl/gateway",
+  "version": "0.0.0",
+  "description": "> TODO: description",
+  "author": "Leo Lee",
+  "homepage": "",
+  "license": "ISC",
+  "main": "dist/index.js",
+  "scripts": {
+    "test": "echo \"Error: run tests from root\" && exit 1",
+    "build": "tsc",
+    "start": "yarn build && node dist/index.js"
+  },
+  "dependencies": {
+    "@apollo/federation": "^0.33.3",
+    "@apollo/gateway": "^0.42.3",
+    "@leoltl/infra": "file:../infra",
+    "apollo-server": "^3.4.0",
+    "apollo-server-express": "^3.4.0",
+    "express": "^4.17.1",
+    "graphql": "^15.6.1"
+  }
+}

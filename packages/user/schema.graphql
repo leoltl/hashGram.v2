@@ -1,10 +1,3 @@
-type Query {
-  _: String
-}
-type Mutation {
-  _: String
-}
-
 extend type Query {
   userById(id: String!): User
 }
@@ -14,7 +7,7 @@ extend type Mutation {
   signIn(input: SignInInput!): SignInResult!
 }
 
-type User {
+type User @key(fields: "id") {
   id: ID!
   name: String
   email: String!

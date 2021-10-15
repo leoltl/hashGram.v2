@@ -1,15 +1,18 @@
 import path from "path";
-import { loadSchemaSync } from '@graphql-tools/load';
-import { GraphQLFileLoader } from '@graphql-tools/graphql-file-loader';
-import { addResolversToSchema } from '@graphql-tools/schema';
+import fs from "fs";
+import { gql } from "apollo-server-core";
+import { buildSubgraphSchema } from '@apollo/federation';
 import { resolvers } from "./resolvers";
 
-const rawSchema = loadSchemaSync(
-  path.resolve(__dirname, "..", "..", "schema.graphql"),
-  { loaders: [new GraphQLFileLoader()] }
+const typeDefsRaw = fs.readFileSync(
+  path.resolve(__dirname, "..", "..", "schema.graphql")
 );
 
-export const schema = addResolversToSchema({
-  schema: rawSchema,
-  resolvers,
-})
+export const schema = buildSubgraphSchema(
+  { 
+    typeDefs: gql`
+      ${typeDefsRaw}
+    `,
+    resolvers: resolvers as any,
+  }
+);

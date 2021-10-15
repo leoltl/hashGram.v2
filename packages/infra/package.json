@@ -1,0 +1,13 @@
+{
+  "name": "@leoltl/infra",
+  "version": "0.0.0",
+  "description": "> TODO: description",
+  "author": "Leo Lee",
+  "homepage": "",
+  "license": "ISC",
+  "main": "dist/index.js",
+  "scripts": {
+    "test": "echo \"Error: run tests from root\" && exit 1",
+    "build": "tsc --declaration"
+  }
+}

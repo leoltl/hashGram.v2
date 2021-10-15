@@ -2,6 +2,7 @@ import express from "express";
 import http from "http";
 import { ApolloServer } from 'apollo-server-express';
 import { ApolloServerPluginDrainHttpServer } from 'apollo-server-core';
+import { servicesMap } from "@leoltl/infra";
 import { prisma } from "./database";
 import { schema } from "./graphql";
 import UserRepository from "./repository";
@@ -10,8 +11,7 @@ import UserService from "./service";
 import type { Express } from 'express';
 import TokenManager from "./utils/TokenManager";
 
-const PORT = 3002;
-
+const PORT = servicesMap.USER.port;
 
 function loadServices() {
 	const repository = new UserRepository(prisma.user);
