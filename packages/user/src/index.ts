@@ -3,23 +3,28 @@ import http from "http";
 import { ApolloServer } from 'apollo-server-express';
 import { ApolloServerPluginDrainHttpServer } from 'apollo-server-core';
 import { prisma } from "./database";
-import { schema, ResolversBuilder, makeUserQueries, makeUserMutations } from "./graphql";
+import { schema } from "./graphql";
 import UserRepository from "./repository";
 import UserService from "./service";
 
 import type { Express } from 'express';
-import type { GraphQLSchema } from "graphql";
-import type { Resolvers } from "./resolvers-types";
-
 
 const PORT = 3002;
 
-function bootstrap() {
+
+function loadServices() {
 	const repository = new UserRepository(prisma.user);
-	const service = new UserService(repository);
-	const resolvers = new ResolversBuilder(service, makeUserQueries, makeUserMutations).build();
-	return { resolvers, schema };
+	const userService = new UserService(repository);
+	return { userService };
 }
+
+function createRequestContext (services: ServicesContext) {
+	return { ...services };
+}
+
+type ServicesContext = ReturnType<typeof loadServices>;
+
+export type RequestContext = ReturnType<typeof createRequestContext>;
 
 async function user() {
 
@@ -27,20 +32,19 @@ async function user() {
 
 	app.get('/', async (req, res) => {
 		const result = prisma.user.findMany();
-		res.send("hi from user")
+		res.send(`hi from user ${JSON.stringify(result)}`)
 	});
-
-	const { resolvers, schema } = bootstrap();
 	
-	await startApolloServer(app, schema, resolvers);
+	await startApolloServer(app, loadServices());
 }
 
-async function startApolloServer(app: Express, schema: GraphQLSchema, resolvers: Resolvers) {
+async function startApolloServer(app: Express, services: ServicesContext) {
 	const httpServer = http.createServer(app);
+	
 	const server = new ApolloServer({
 		schema,
-		resolvers,
-		plugins: [ApolloServerPluginDrainHttpServer({ httpServer })]
+		plugins: [ApolloServerPluginDrainHttpServer({ httpServer })],
+		context: () => createRequestContext(services),
 	});
 
 	await server.start();

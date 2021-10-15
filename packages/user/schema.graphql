@@ -1,7 +1,7 @@
 type Query {
   _: String
 }
-type Query {
+type Mutation {
   _: String
 }
 
