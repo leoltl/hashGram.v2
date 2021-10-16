@@ -1,4 +1,4 @@
-import { classToPlain, ClassTransformOptions } from "class-transformer";
+import { classToPlain, ClassTransformOptions, Exclude, Expose } from "class-transformer";
 import type { User as GqlUserType } from "../resolvers-types";
 
 export abstract class BaseUser {
@@ -8,11 +8,14 @@ export abstract class BaseUser {
   email: string;
   
   name: string | null;
-  
+
+  @Exclude({ toPlainOnly: true })
   isDeleted: boolean;
   
+  @Expose({ groups: ['auth']})
   passwordHash: string;
 
+  @Exclude({ toPlainOnly: true })
   createdAt: Date;
 
   serialize(options?: ClassTransformOptions) {
