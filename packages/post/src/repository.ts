@@ -1,5 +1,5 @@
 import { IPostRepository, Post } from "./types";
-import { Prisma, PrismaClient } from "./__generated__/client";
+import { Prisma, PrismaClient } from "../__generated__/client";
 
 class PostRepository implements IPostRepository {
   

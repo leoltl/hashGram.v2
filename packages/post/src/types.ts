@@ -1,4 +1,4 @@
-import { Prisma, Post } from './__generated__/client';
+import { Prisma, Post } from '../__generated__/client';
 
 export interface IPostRepository {
   get: (where: Prisma.PostWhereUniqueInput) => Promise<Post | null>
@@ -8,4 +8,4 @@ export interface IPostRepository {
   delete: (id: string) => Promise<string>
 }
 
-export { Post } from "./__generated__/client";
+export { Post } from "../__generated__/client";

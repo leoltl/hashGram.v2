@@ -5,13 +5,13 @@ datasource db {
 
 generator client {
   provider = "prisma-client-js"
-  output   = "../src/__generated__/client"
+  output   = "../__generated__/client"
 }
 
 model Post {
   id        String   @id @default(uuid())
   createdAt DateTime @default(now())
   isDeleted Boolean  @default(false)
-  userId    String
+  ownerId   String
   imageUrl  String
 }

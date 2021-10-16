@@ -5,7 +5,7 @@ export class TokenManager {
 
   sign<T extends GqlUserType>(user: T) {
     return jwt.sign(
-      { name: user.name, email: user.email },
+      { id: user.id, name: user.name, email: user.email },
       this.secretKey,
       { 
         algorithm: "HS256",

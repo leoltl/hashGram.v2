@@ -8,19 +8,29 @@ import { JWTUser } from "@leoltl/user";
 
 import type { Express, Request } from 'express';
 import { schema } from "./graphql";
+import GCloudService from "./CGloudService";
+import PostService from "./service";
+import PostRepository from "./repository";
+import { prisma } from "./database";
 
 const PORT = servicesMap.POST.port;
 
 
 function loadServices() {
-    return {}
+		const gCloudService = new GCloudService();
+		const postRepository = new PostRepository(prisma.post);
+		const postService = new PostService(postRepository);
+    return {
+			gCloudService,
+			postService,
+		}
 }
 
 function createRequestContext(services: ServicesContext, req: Request) {
 	const stringifiedUserOrNull = req.headers.user as string;
 	return { 
 		...services,
-		user: JSON.parse(stringifiedUserOrNull) as JWTUser,
+		user: JSON.parse(stringifiedUserOrNull) as JWTUser | null,
 	};
 }
 
@@ -35,7 +45,7 @@ async function post() {
     app.get('/', (req, res) => {
         res.send("hi from post")
     });
-
+	
     await startApolloServer(app, loadServices());
 }
 

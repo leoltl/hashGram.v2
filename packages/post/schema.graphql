@@ -1,5 +1,10 @@
 extend type Query {
-  postById: Post
+  postById(id: String!): Post
+  postUploadSignedUrl: String!
+}
+
+extend type Mutation {
+  postCreate(input: PostCreateInput!): PostCreateResult!
 }
 
 type Post @key(fields: "id") {
@@ -12,4 +17,13 @@ type Post @key(fields: "id") {
 
 extend type User @key(fields: "id") {
   id: ID! @external
+}
+
+input PostCreateInput {
+  imageUrl: String!
+}
+
+type PostCreateResult {
+  post: Post
+  message: String
 }

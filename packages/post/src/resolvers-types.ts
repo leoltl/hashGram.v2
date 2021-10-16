@@ -4,6 +4,7 @@ export type Maybe<T> = T | null;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
 export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> };
 export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Maybe<T[SubKey]> };
+export type RequireFields<T, K extends keyof T> = { [X in Exclude<keyof T, K>]?: T[X] } & { [P in K]-?: NonNullable<T[P]> };
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
   ID: string;
@@ -12,6 +13,16 @@ export type Scalars = {
   Int: number;
   Float: number;
   _FieldSet: any;
+};
+
+export type Mutation = {
+  __typename?: 'Mutation';
+  postCreate: PostCreateResult;
+};
+
+
+export type MutationPostCreateArgs = {
+  input: PostCreateInput;
 };
 
 export type Post = {
@@ -23,9 +34,25 @@ export type Post = {
   ownerId: Scalars['ID'];
 };
 
+export type PostCreateInput = {
+  imageUrl: Scalars['String'];
+};
+
+export type PostCreateResult = {
+  __typename?: 'PostCreateResult';
+  message?: Maybe<Scalars['String']>;
+  post?: Maybe<Post>;
+};
+
 export type Query = {
   __typename?: 'Query';
   postById?: Maybe<Post>;
+  postUploadSignedUrl: Scalars['String'];
+};
+
+
+export type QueryPostByIdArgs = {
+  id: Scalars['String'];
 };
 
 export type User = {
@@ -113,9 +140,12 @@ export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs
 
 /** Mapping between all available schema types and the resolvers types */
 export type ResolversTypes = {
+  Mutation: ResolverTypeWrapper<{}>;
   Post: ResolverTypeWrapper<Post>;
   String: ResolverTypeWrapper<Scalars['String']>;
   ID: ResolverTypeWrapper<Scalars['ID']>;
+  PostCreateInput: PostCreateInput;
+  PostCreateResult: ResolverTypeWrapper<PostCreateResult>;
   Query: ResolverTypeWrapper<{}>;
   User: ResolverTypeWrapper<User>;
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
@@ -123,12 +153,19 @@ export type ResolversTypes = {
 
 /** Mapping between all available schema types and the resolvers parents */
 export type ResolversParentTypes = {
+  Mutation: {};
   Post: Post;
   String: Scalars['String'];
   ID: Scalars['ID'];
+  PostCreateInput: PostCreateInput;
+  PostCreateResult: PostCreateResult;
   Query: {};
   User: User;
   Boolean: Scalars['Boolean'];
+};
+
+export type MutationResolvers<ContextType = RequestContext, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = {
+  postCreate?: Resolver<ResolversTypes['PostCreateResult'], ParentType, ContextType, RequireFields<MutationPostCreateArgs, 'input'>>;
 };
 
 export type PostResolvers<ContextType = RequestContext, ParentType extends ResolversParentTypes['Post'] = ResolversParentTypes['Post']> = {
@@ -141,8 +178,15 @@ export type PostResolvers<ContextType = RequestContext, ParentType extends Resol
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
+export type PostCreateResultResolvers<ContextType = RequestContext, ParentType extends ResolversParentTypes['PostCreateResult'] = ResolversParentTypes['PostCreateResult']> = {
+  message?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  post?: Resolver<Maybe<ResolversTypes['Post']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
 export type QueryResolvers<ContextType = RequestContext, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
-  postById?: Resolver<Maybe<ResolversTypes['Post']>, ParentType, ContextType>;
+  postById?: Resolver<Maybe<ResolversTypes['Post']>, ParentType, ContextType, RequireFields<QueryPostByIdArgs, 'id'>>;
+  postUploadSignedUrl?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
 };
 
 export type UserResolvers<ContextType = RequestContext, ParentType extends ResolversParentTypes['User'] = ResolversParentTypes['User']> = {
@@ -152,7 +196,9 @@ export type UserResolvers<ContextType = RequestContext, ParentType extends Resol
 };
 
 export type Resolvers<ContextType = RequestContext> = {
+  Mutation?: MutationResolvers<ContextType>;
   Post?: PostResolvers<ContextType>;
+  PostCreateResult?: PostCreateResultResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;
   User?: UserResolvers<ContextType>;
 };

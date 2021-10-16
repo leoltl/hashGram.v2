@@ -2,6 +2,7 @@
   "compilerOptions": {
     "outDir": "dist",
     "esModuleInterop": true,
+    "strictPropertyInitialization": false,
     "experimentalDecorators": true,
   },
   "extends": "@tsconfig/node14/tsconfig.json"

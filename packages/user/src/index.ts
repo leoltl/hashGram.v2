@@ -30,7 +30,7 @@ function createRequestContext(services: ServicesContext, req: Request) {
 	return { 
 		...services, 
 		tokenManager: new TokenManager(),
-		user: JSON.parse(stringifiedUserOrNull) as JWTUser,
+		user: JSON.parse(stringifiedUserOrNull) as JWTUser | null,
 	};
 }
 
