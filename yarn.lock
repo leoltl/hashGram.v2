@@ -922,7 +922,7 @@
   dependencies:
     "@apollo/federation" "^0.33.3"
     "@apollo/gateway" "^0.42.3"
-    "@leoltl/infra" "file:../../../Library/Caches/Yarn/v6/npm-@leoltl-gateway-0.0.0-1978da3e-b0fa-4034-b36a-fce14a32381a-1634350395287/node_modules/@leoltl/infra"
+    "@leoltl/infra" "file:../../../Library/Caches/Yarn/v6/npm-@leoltl-gateway-0.0.0-3f809789-83a0-4bdf-a3d2-a4882fdf0276-1634355633062/node_modules/@leoltl/infra"
     apollo-server "^3.4.0"
     apollo-server-express "^3.4.0"
     express "^4.17.1"
@@ -935,7 +935,11 @@
 "@leoltl/post@file:packages/post":
   version "0.0.0"
   dependencies:
-    "@leoltl/user" "file:../../../Library/Caches/Yarn/v6/npm-@leoltl-post-0.0.0-9c614089-da14-43d3-b23e-163b98c32e1d-1634350395687/node_modules/@leoltl/user"
+    "@graphql-codegen/cli" "^2.2.1"
+    "@graphql-codegen/typescript" "^2.2.4"
+    "@graphql-codegen/typescript-resolvers" "^2.3.2"
+    "@leoltl/user" "file:../../../Library/Caches/Yarn/v6/npm-@leoltl-post-0.0.0-e8dadf39-c489-4243-a704-424ed786a958-1634355633164/node_modules/@leoltl/user"
+    "@prisma/client" "^3.2.1"
     apollo-server-core "^3.4.0"
     apollo-server-express "^3.4.0"
     express "^4.17.1"
@@ -947,9 +951,8 @@
     "@graphql-codegen/cli" "^2.2.1"
     "@graphql-codegen/typescript" "^2.2.4"
     "@graphql-codegen/typescript-resolvers" "^2.3.2"
-    "@leoltl/infra" "file:../../../Library/Caches/Yarn/v6/npm-@leoltl-user-0.0.0-c36c0ab8-e484-4669-bb63-d2e9494a8e14-1634350395689/node_modules/@leoltl/infra"
+    "@leoltl/infra" "file:../../../Library/Caches/Yarn/v6/npm-@leoltl-user-0.0.0-440b7345-7bcd-4db7-87dd-ed73cf2649b4-1634355633290/node_modules/@leoltl/infra"
     "@prisma/client" "^3.2.1"
-    "@types/uuid" "^8.3.1"
     apollo-server-core "^3.4.0"
     apollo-server-express "^3.4.0"
     bcrypt "^5.0.1"
@@ -1976,6 +1979,14 @@
   resolved "https://registry.yarnpkg.com/@types/cors/-/cors-2.8.12.tgz#6b2c510a7ad7039e98e7b8d3d6598f4359e5c080"
   integrity sha512-vt+kDhq/M2ayberEtJcIN/hxXy1Pk+59g2FV/ZQceeaTyCtCucjL2Q7FXlFjtWn4n15KCr1NE2lNNFhp0lEThw==
 
+"@types/express-jwt@^6.0.2":
+  version "6.0.2"
+  resolved "https://registry.yarnpkg.com/@types/express-jwt/-/express-jwt-6.0.2.tgz#15938f9a50945ccab35361227e438f98abdb713f"
+  integrity sha512-WDnO/0jeWyhX253TOIJHZzLE/pmXSucslKeztphjZDxim/wYDaDeDcj6/U9YAHcgFfwBu+I3Obfy+xB6/VaRcA==
+  dependencies:
+    "@types/express" "*"
+    "@types/express-unless" "*"
+
 "@types/express-serve-static-core@4.17.24", "@types/express-serve-static-core@^4.17.18":
   version "4.17.24"
   resolved "https://registry.yarnpkg.com/@types/express-serve-static-core/-/express-serve-static-core-4.17.24.tgz#ea41f93bf7e0d59cd5a76665068ed6aab6815c07"
@@ -1985,7 +1996,14 @@
     "@types/qs" "*"
     "@types/range-parser" "*"
 
-"@types/express@4.17.13", "@types/express@^4.17.13":
+"@types/express-unless@*":
+  version "0.5.2"
+  resolved "https://registry.yarnpkg.com/@types/express-unless/-/express-unless-0.5.2.tgz#07e29883d280778588644b03563d8796f870f20e"
+  integrity sha512-Q74UyYRX/zIgl1HSp9tUX2PlG8glkVm+59r7aK4KGKzC5jqKIOX6rrVLRQrzpZUQ84VukHtRoeAuon2nIssHPQ==
+  dependencies:
+    "@types/express" "*"
+
+"@types/express@*", "@types/express@4.17.13", "@types/express@^4.17.13":
   version "4.17.13"
   resolved "https://registry.yarnpkg.com/@types/express/-/express-4.17.13.tgz#a76e2995728999bab51a33fabce1d705a3709034"
   integrity sha512-6bSZTPaTIACxn48l50SR+axgrqm6qXFIxrdAKaG6PaJk3+zuUr35hBlgT7vOmJcum+OEaIBLtHV/qloEAFITeA==

@@ -870,7 +870,7 @@
     "@graphql-codegen/cli" "^2.2.1"
     "@graphql-codegen/typescript" "^2.2.4"
     "@graphql-codegen/typescript-resolvers" "^2.3.2"
-    "@leoltl/infra" "file:../../../../../Library/Caches/Yarn/v6/npm-@leoltl-user-0.0.0-facaa284-c8e4-4b31-8b96-37b68d90da84-1634351255390/node_modules/@leoltl/infra"
+    "@leoltl/infra" "file:../../../../../Library/Caches/Yarn/v6/npm-@leoltl-user-0.0.0-3e561edd-ab40-467c-95ec-d95b1cee694e-1634355585690/node_modules/@leoltl/infra"
     "@prisma/client" "^3.2.1"
     apollo-server-core "^3.4.0"
     apollo-server-express "^3.4.0"
