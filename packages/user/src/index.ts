@@ -7,9 +7,9 @@ import { prisma } from "./database";
 import { schema } from "./graphql";
 import UserRepository from "./repository";
 import UserService from "./service";
+import { TokenManager } from "./utils";
 
 import type { Express, Request } from 'express';
-import TokenManager from "./utils/TokenManager";
 
 const PORT = servicesMap.USER.port;
 

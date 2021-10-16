@@ -2,17 +2,16 @@ import bcrypt from "bcrypt";
 import { ClassTransformOptions, plainToClass } from "class-transformer";
 import { uuid } from "./utils";
 import { Admin as AdminCls, User as UserCls } from "./entities";
-import { PrismaErrorHandler } from "./utils/errorHandler";
+import { PrismaErrorHandler } from "./utils";
 
 import type { IUserRepository } from "./types";
 import type { SignUpInput } from "./resolvers-types";
-import type { User } from ".prisma/client";
+import type { User as DbUserType } from ".prisma/client";
 class UserService {
-  private userRepository: IUserRepository;
 
-  constructor(userRepository: IUserRepository) {
-    this.userRepository = userRepository;
-  }
+  constructor(
+    private userRepository: IUserRepository
+  ) {}
 
   async userById(id: string) {
     const user = await this.userRepository.get({ id });
@@ -46,7 +45,7 @@ class UserService {
 
     const user = plainToClass(UserCls, userInput, { groups: ['auth']});
     
-    let result: User;
+    let result: DbUserType;
     try {
       result = await this.userRepository.create(user);
     } catch (e) {
@@ -81,7 +80,7 @@ class UserService {
     return await bcrypt.compare(plainPassword, passwordHash);
   }
 
-  private instantiateUser(plainUser: User, options?: ClassTransformOptions) {
+  private instantiateUser(plainUser: DbUserType, options?: ClassTransformOptions) {
     let user: AdminCls | UserCls;
     if (plainUser?.role === 'ADMIN') {
       user = plainToClass(AdminCls, plainUser, options);
