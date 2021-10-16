@@ -6,7 +6,7 @@ import { PrismaErrorHandler } from "./utils";
 
 import type { IUserRepository } from "./types";
 import type { SignUpInput } from "./resolvers-types";
-import type { User as DbUserType } from "./__generated__/client";
+import type { User as DbUserType } from "../__generated__/client";
 class UserService {
 
   constructor(

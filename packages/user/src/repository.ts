@@ -1,4 +1,4 @@
-import { Prisma, PrismaClient, User } from "./__generated__/client";
+import { Prisma, PrismaClient, User } from "../__generated__/client";
 import { IUserRepository } from "./types";
 
 class UserRepository implements IUserRepository {

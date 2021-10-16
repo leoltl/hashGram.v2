@@ -1,4 +1,4 @@
-import { Prisma } from "../__generated__/client";
+import { Prisma } from "../../__generated__/client";
 
 export const PrismaErrorHandler = (e: any) => {
   if (e instanceof Prisma.PrismaClientKnownRequestError) {

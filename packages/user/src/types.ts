@@ -1,4 +1,4 @@
-import { Prisma, User } from "./__generated__/client";
+import { Prisma, User } from "../__generated__/client";
 
 export interface IUserRepository {
   get: (where: Prisma.UserWhereUniqueInput) => Promise<User | null>
@@ -8,4 +8,4 @@ export interface IUserRepository {
   delete: (id: string) => Promise<string>
 }
 
-export { User } from "./__generated__/client";
+export { User } from "../__generated__/client";
