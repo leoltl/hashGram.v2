@@ -19,7 +19,7 @@
     "@leoltl/user": "file:packages/user"
   },
   "scripts": {
-    "bootstrap": "lerna bootstrap --nohoist=prisma && lerna exec yarn && lerna run codegen",
+    "bootstrap": "lerna bootstrap && lerna exec yarn && lerna run codegen",
     "watch:all": "lerna run --parallel watch"
   }
 }

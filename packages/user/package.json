@@ -11,7 +11,7 @@
     "build": "tsc --declaration",
     "start": "yarn build && node dist/index.js",
     "watch": "yarn codegen && tsc-watch --onSuccess \"node dist/index.js\"",
-    "codegen": "yarn graphql-codegen && yarn prisma generate"
+    "codegen": "yarn prisma generate && yarn graphql-codegen"
   },
   "dependencies": {
     "@apollo/federation": "^0.33.3",
