@@ -1,0 +1,15 @@
+extend type Query {
+  postById: Post
+}
+
+type Post @key(fields: "id") {
+  id: ID!
+  createdAt: String!
+  imageUrl: String!
+  ownerId: ID!
+  owner: User @provides(fields: "id")
+}
+
+extend type User @key(fields: "id") {
+  id: ID! @external
+}

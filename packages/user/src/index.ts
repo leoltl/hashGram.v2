@@ -13,7 +13,7 @@ import type { Express, Request } from 'express';
 
 const PORT = servicesMap.USER.port;
 
-interface JWTUser {
+export interface JWTUser {
 	id: string
 	name: string
 	email: string
