@@ -8,6 +8,7 @@ import { schema } from "./graphql";
 import UserRepository from "./repository";
 import UserService from "./service";
 import { TokenManager } from "./utils";
+import { makeDataLoader } from "./dataloader";
 
 import type { Express, Request } from 'express';
 
@@ -29,12 +30,13 @@ function createRequestContext(services: ServicesContext, req: Request) {
 	const stringifiedUserOrNull = req.headers.user as string;
 	return { 
 		...services, 
+		...makeDataLoader(services),
 		tokenManager: new TokenManager(),
 		user: JSON.parse(stringifiedUserOrNull) as JWTUser | null,
 	};
 }
 
-type ServicesContext = ReturnType<typeof loadServices>;
+export type ServicesContext = ReturnType<typeof loadServices>;
 
 export type RequestContext = ReturnType<typeof createRequestContext>;
 

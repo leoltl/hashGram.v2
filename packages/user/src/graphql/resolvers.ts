@@ -1,14 +1,14 @@
 import type { Resolvers } from "../resolvers-types";
 
 const User: Resolvers['User'] = {
-  async __resolveReference(object, { userService }) {
-    return userService.userById(object.id)
+  async __resolveReference(object, { userLoader }) {
+    return userLoader.load(object.id)
   }
 }
 
 const Query: Resolvers["Query"] = {
-  async userById(_, args, { userService }) {
-    return await userService.userById(args.id);
+  async userById(_, args, { userLoader }) {
+    return await userLoader.load(args.id);
   }
 };
 

@@ -15,8 +15,10 @@ class UserRepository implements IUserRepository {
     return user;
   }
 
-  async getAll() {
-    const users = await this.UserDb.findMany();
+  async getAll(where: Prisma.UserWhereInput) {
+    const users = await this.UserDb.findMany(
+      { where }
+    );
     return users;
   }
 

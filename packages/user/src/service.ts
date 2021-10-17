@@ -24,6 +24,17 @@ class UserService {
 
     return userCls.serialize();
   }
+
+  async usersByIds(ids: string[]) {
+    const results = await this.userRepository.getAll(
+      { id: { in: ids } 
+    });
+
+    return results.map((user) => {
+      const userCls = this.instantiateUser(user);
+      return userCls.serialize();
+    });
+  }
   
   async signUp(input: SignUpInput) {
 
