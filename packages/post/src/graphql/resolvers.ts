@@ -1,4 +1,3 @@
-import type { Post as DbPostType } from "../../__generated__/client";
 import type { Resolvers } from "../resolvers-types";
 
 const Query: Resolvers["Query"] = {
@@ -7,6 +6,9 @@ const Query: Resolvers["Query"] = {
   },
   async postUploadSignedUrl(_, __, { gCloudService }) {
     return await gCloudService.generateSignedUrl();
+  },
+  async postByUser(_, { userId }, { postService }) {
+    return await postService.postsByUserId(userId);
   }
 };
 
@@ -36,9 +38,15 @@ const Post: Resolvers["Post"] = {
   }
 };
 
+const User: Resolvers["User"] = {
+  async posts(user, _, { postService }) {
+    return await postService.postsByUserId(user.id);
+  }
+}
 
 export const resolvers: Resolvers = {
   Query,
   Mutation,
   Post,
+  User,
 }

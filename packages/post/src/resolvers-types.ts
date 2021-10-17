@@ -27,9 +27,9 @@ export type MutationPostCreateArgs = {
 
 export type Post = {
   __typename?: 'Post';
-  createdAt: Scalars['String'];
+  createdAt?: Maybe<Scalars['String']>;
   id: Scalars['ID'];
-  imageUrl: Scalars['String'];
+  imageUrl?: Maybe<Scalars['String']>;
   owner?: Maybe<User>;
   ownerId: Scalars['ID'];
 };
@@ -47,6 +47,7 @@ export type PostCreateResult = {
 export type Query = {
   __typename?: 'Query';
   postById?: Maybe<Post>;
+  postByUser?: Maybe<Array<Maybe<Post>>>;
   postUploadSignedUrl: Scalars['String'];
 };
 
@@ -55,9 +56,15 @@ export type QueryPostByIdArgs = {
   id: Scalars['String'];
 };
 
+
+export type QueryPostByUserArgs = {
+  userId: Scalars['String'];
+};
+
 export type User = {
   __typename?: 'User';
   id: Scalars['ID'];
+  posts?: Maybe<Array<Maybe<Post>>>;
 };
 
 
@@ -170,9 +177,9 @@ export type MutationResolvers<ContextType = RequestContext, ParentType extends R
 
 export type PostResolvers<ContextType = RequestContext, ParentType extends ResolversParentTypes['Post'] = ResolversParentTypes['Post']> = {
   __resolveReference?: ReferenceResolver<Maybe<ResolversTypes['Post']>, { __typename: 'Post' } & GraphQLRecursivePick<ParentType, {"id":true}>, ContextType>;
-  createdAt?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  createdAt?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
-  imageUrl?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  imageUrl?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   owner?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>;
   ownerId?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
@@ -186,12 +193,14 @@ export type PostCreateResultResolvers<ContextType = RequestContext, ParentType e
 
 export type QueryResolvers<ContextType = RequestContext, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
   postById?: Resolver<Maybe<ResolversTypes['Post']>, ParentType, ContextType, RequireFields<QueryPostByIdArgs, 'id'>>;
+  postByUser?: Resolver<Maybe<Array<Maybe<ResolversTypes['Post']>>>, ParentType, ContextType, RequireFields<QueryPostByUserArgs, 'userId'>>;
   postUploadSignedUrl?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
 };
 
 export type UserResolvers<ContextType = RequestContext, ParentType extends ResolversParentTypes['User'] = ResolversParentTypes['User']> = {
   __resolveReference?: ReferenceResolver<Maybe<ResolversTypes['User']>, { __typename: 'User' } & GraphQLRecursivePick<ParentType, {"id":true}>, ContextType>;
   id?: Resolver<ResolversTypes['ID'], { __typename: 'User' } & GraphQLRecursivePick<ParentType, {"id":true}>, ContextType>;
+  posts?: Resolver<Maybe<Array<Maybe<ResolversTypes['Post']>>>, { __typename: 'User' } & GraphQLRecursivePick<ParentType, {"id":true}>, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 

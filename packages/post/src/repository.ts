@@ -15,8 +15,10 @@ class PostRepository implements IPostRepository {
     return post
   }
   
-  async getAll() {
-    const posts = await this.PostDb.findMany();
+  async getAll(where: Prisma.PostWhereInput) {
+    const posts = await this.PostDb.findMany({
+      where
+    });
     return posts;
   }
   

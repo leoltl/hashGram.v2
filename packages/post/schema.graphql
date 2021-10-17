@@ -1,5 +1,6 @@
 extend type Query {
   postById(id: String!): Post
+  postByUser(userId: String!): [Post]
   postUploadSignedUrl: String!
 }
 
@@ -9,14 +10,15 @@ extend type Mutation {
 
 type Post @key(fields: "id") {
   id: ID!
-  createdAt: String!
-  imageUrl: String!
+  createdAt: String
+  imageUrl: String
   ownerId: ID!
   owner: User @provides(fields: "id")
 }
 
 extend type User @key(fields: "id") {
   id: ID! @external
+  posts: [Post]
 }
 
 input PostCreateInput {

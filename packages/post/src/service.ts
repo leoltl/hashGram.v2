@@ -21,6 +21,15 @@ class PostService {
     return postCls.serialize();
   }
 
+  async postsByUserId(userId: string) {
+    const posts = await this.postRepository.getAll({ ownerId: userId });
+
+    return posts.map((post) => {
+      const postCls = this.instantiatePost(post);
+      return postCls.serialize();
+    });
+  }
+
   async createPost(imageUrl: string, userId: string) {
     const post = await this.postRepository.create({
       imageUrl,
