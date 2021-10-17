@@ -15,9 +15,6 @@
   },
   "dependencies": {
     "@apollo/federation": "^0.33.3",
-    "@graphql-codegen/cli": "^2.2.1",
-    "@graphql-codegen/typescript": "^2.2.4",
-    "@graphql-codegen/typescript-resolvers": "^2.3.2",
     "@leoltl/infra": "file:../infra",
     "@prisma/client": "^3.2.1",
     "apollo-server-core": "^3.4.0",
@@ -31,6 +28,9 @@
     "uuid": "^8.3.2"
   },
   "devDependencies": {
-    "prisma": "^3.2.1"
+    "prisma": "^3.2.1",
+    "@graphql-codegen/cli": "^2.2.1",
+    "@graphql-codegen/typescript": "^2.2.4",
+    "@graphql-codegen/typescript-resolvers": "^2.3.2"
   }
 }

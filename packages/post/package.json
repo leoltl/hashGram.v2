@@ -2,7 +2,7 @@
   "name": "@leoltl/post",
   "version": "0.0.0",
   "description": "> TODO: description",
-  "author": "Leo Lee <leo@brokerbay.ca>",
+  "author": "Leo Lee",
   "homepage": "",
   "license": "ISC",
   "main": "dist/index.js",
@@ -15,9 +15,6 @@
   },
   "dependencies": {
     "@google-cloud/storage": "^5.15.3",
-    "@graphql-codegen/cli": "^2.2.1",
-    "@graphql-codegen/typescript": "^2.2.4",
-    "@graphql-codegen/typescript-resolvers": "^2.3.2",
     "@leoltl/user": "file:../user",
     "@prisma/client": "^3.2.1",
     "apollo-server-core": "^3.4.0",
@@ -27,6 +24,9 @@
     "uuid": "^8.3.2"
   },
   "devDependencies": {
-    "prisma": "^3.2.1"
+    "prisma": "^3.2.1",
+    "@graphql-codegen/cli": "^2.2.1",
+    "@graphql-codegen/typescript": "^2.2.4",
+    "@graphql-codegen/typescript-resolvers": "^2.3.2"
   }
 }

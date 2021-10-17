@@ -925,10 +925,7 @@
   version "0.0.0"
   dependencies:
     "@apollo/federation" "^0.33.3"
-    "@graphql-codegen/cli" "^2.2.1"
-    "@graphql-codegen/typescript" "^2.2.4"
-    "@graphql-codegen/typescript-resolvers" "^2.3.2"
-    "@leoltl/infra" "file:../../../../../Library/Caches/Yarn/v6/npm-@leoltl-user-0.0.0-226eca1f-c4d0-4f38-be0b-da78ddc21f58-1634417463499/node_modules/@leoltl/infra"
+    "@leoltl/infra" "file:../../../../../Library/Caches/Yarn/v6/npm-@leoltl-user-0.0.0-07e825ce-cd46-4a27-8d52-81dcc416de0f-1634436784801/node_modules/@leoltl/infra"
     "@prisma/client" "^3.2.1"
     apollo-server-core "^3.4.0"
     apollo-server-express "^3.4.0"
