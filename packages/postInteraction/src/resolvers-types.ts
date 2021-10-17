@@ -23,6 +23,12 @@ export type CommentPostInteraction = {
   userId?: Maybe<Scalars['String']>;
 };
 
+export type CommentPostResult = {
+  __typename?: 'CommentPostResult';
+  comments?: Maybe<Array<Maybe<CommentPostInteraction>>>;
+  message?: Maybe<Scalars['String']>;
+};
+
 export type LikePostInteraction = {
   __typename?: 'LikePostInteraction';
   timestamp?: Maybe<Scalars['String']>;
@@ -37,7 +43,14 @@ export type LikePostResult = {
 
 export type Mutation = {
   __typename?: 'Mutation';
+  commentPost: CommentPostResult;
   likePost: LikePostResult;
+};
+
+
+export type MutationCommentPostArgs = {
+  body: Scalars['String'];
+  postId: Scalars['String'];
 };
 
 
@@ -61,7 +74,7 @@ export type Query = {
 
 
 export type QueryInteractionByPostIdArgs = {
-  postId?: Maybe<Scalars['String']>;
+  postId: Scalars['String'];
 };
 
 
@@ -135,6 +148,7 @@ export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs
 export type ResolversTypes = {
   CommentPostInteraction: ResolverTypeWrapper<CommentPostInteraction>;
   String: ResolverTypeWrapper<Scalars['String']>;
+  CommentPostResult: ResolverTypeWrapper<CommentPostResult>;
   LikePostInteraction: ResolverTypeWrapper<LikePostInteraction>;
   LikePostResult: ResolverTypeWrapper<LikePostResult>;
   Int: ResolverTypeWrapper<Scalars['Int']>;
@@ -148,6 +162,7 @@ export type ResolversTypes = {
 export type ResolversParentTypes = {
   CommentPostInteraction: CommentPostInteraction;
   String: Scalars['String'];
+  CommentPostResult: CommentPostResult;
   LikePostInteraction: LikePostInteraction;
   LikePostResult: LikePostResult;
   Int: Scalars['Int'];
@@ -165,6 +180,12 @@ export type CommentPostInteractionResolvers<ContextType = RequestContext, Parent
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
+export type CommentPostResultResolvers<ContextType = RequestContext, ParentType extends ResolversParentTypes['CommentPostResult'] = ResolversParentTypes['CommentPostResult']> = {
+  comments?: Resolver<Maybe<Array<Maybe<ResolversTypes['CommentPostInteraction']>>>, ParentType, ContextType>;
+  message?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
 export type LikePostInteractionResolvers<ContextType = RequestContext, ParentType extends ResolversParentTypes['LikePostInteraction'] = ResolversParentTypes['LikePostInteraction']> = {
   timestamp?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   userId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
@@ -178,6 +199,7 @@ export type LikePostResultResolvers<ContextType = RequestContext, ParentType ext
 };
 
 export type MutationResolvers<ContextType = RequestContext, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = {
+  commentPost?: Resolver<ResolversTypes['CommentPostResult'], ParentType, ContextType, RequireFields<MutationCommentPostArgs, 'body' | 'postId'>>;
   likePost?: Resolver<ResolversTypes['LikePostResult'], ParentType, ContextType, RequireFields<MutationLikePostArgs, 'postId'>>;
 };
 
@@ -191,11 +213,12 @@ export type PostInteractionResolvers<ContextType = RequestContext, ParentType ex
 };
 
 export type QueryResolvers<ContextType = RequestContext, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
-  interactionByPostId?: Resolver<Maybe<ResolversTypes['PostInteraction']>, ParentType, ContextType, RequireFields<QueryInteractionByPostIdArgs, never>>;
+  interactionByPostId?: Resolver<Maybe<ResolversTypes['PostInteraction']>, ParentType, ContextType, RequireFields<QueryInteractionByPostIdArgs, 'postId'>>;
 };
 
 export type Resolvers<ContextType = RequestContext> = {
   CommentPostInteraction?: CommentPostInteractionResolvers<ContextType>;
+  CommentPostResult?: CommentPostResultResolvers<ContextType>;
   LikePostInteraction?: LikePostInteractionResolvers<ContextType>;
   LikePostResult?: LikePostResultResolvers<ContextType>;
   Mutation?: MutationResolvers<ContextType>;

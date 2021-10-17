@@ -8,15 +8,18 @@ class PostInteractionService {
     private postInteractionRepository: IPostInteractionRepository
   ) {}
 
-  async likePost(postId: string, userId: string) {
+  async interactionByPostId(postId: string) {
     const result = await this.postInteractionRepository.get({ postId });
 
-    let postInteractionCls: PostInteraction;
-    if (result) {
-      postInteractionCls = plainToClass(PostInteraction, result);
-    } else {
-      postInteractionCls = plainToClass(PostInteraction, { postId });
-    }
+    if (result === null) return null;
+
+    const postInteractionCls = plainToClass(PostInteraction, result);
+    return postInteractionCls.serialize();
+  }
+
+  async likePost(postId: string, userId: string) {
+
+    const postInteractionCls = await this.getByPostIdOrNew(postId);
     
     postInteractionCls.addLike(userId);
     
@@ -28,6 +31,31 @@ class PostInteractionService {
     return {
       likes: postInteractionCls.likes.length,
     };
+  }
+
+  async commentPost(postId: string, userId: string, body: string) {
+
+    const postInteractionCls = await this.getByPostIdOrNew(postId);
+
+    postInteractionCls.addComment(userId, body);
+    
+    await this.postInteractionRepository.update(
+      { postId },
+      postInteractionCls.serialize(),
+    );
+    
+    return {
+      comments: postInteractionCls.comments.map(comment => comment.toJson()),
+    };
+  }
+
+  private async getByPostIdOrNew(postId: string) {
+    const result = await this.postInteractionRepository.get({ postId });
+
+    if (result) {
+      return plainToClass(PostInteraction, result);
+    }
+    return plainToClass(PostInteraction, { postId });
   }
 }
 

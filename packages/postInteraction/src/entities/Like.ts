@@ -2,5 +2,17 @@ export class LikePostInteraction {
   
   userId: string;
 
-  timestamp: Date;
+  timestamp: string;
+
+  toJson(): LikePostInteractionGqlType {
+    return {
+      userId: this.userId,
+      timestamp: this.timestamp.toString(),
+    };
+  }
 };
+
+export interface LikePostInteractionGqlType {
+  userId: string;
+  timestamp: string;
+}

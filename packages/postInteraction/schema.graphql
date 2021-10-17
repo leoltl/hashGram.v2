@@ -1,9 +1,10 @@
 extend type Query {
-  interactionByPostId(postId: String): PostInteraction
+  interactionByPostId(postId: String!): PostInteraction
 }
 
 extend type Mutation {
   likePost(postId: String!): LikePostResult!
+  commentPost(postId: String!, body: String!): CommentPostResult!
 }
 
 type LikePostInteraction {
@@ -28,5 +29,10 @@ type PostInteraction {
 
 type LikePostResult {
   likes: Int
+  message: String
+}
+
+type CommentPostResult {
+  comments: [CommentPostInteraction]
   message: String
 }
