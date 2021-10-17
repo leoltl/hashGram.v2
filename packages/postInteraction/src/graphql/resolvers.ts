@@ -52,9 +52,20 @@ const Post: Resolvers["Post"] = {
   }
 };
 
+const LikePostInteraction: Resolvers["LikePostInteraction"] = {
+  async liker(likePostInteraction) {
+    if (!likePostInteraction.userId) return null;
+    return {
+      __typename: "User",
+      id: likePostInteraction.userId,
+    }
+  }
+}
+
 export const resolvers: Resolvers = {
   Query,
   Mutation,
   PostInteraction,
-  Post
+  Post,
+  LikePostInteraction
 }

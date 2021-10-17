@@ -12,9 +12,14 @@ extend type Post @key(fields: "id") {
   postInteraction: PostInteraction
 }
 
+extend type User @key(fields: "id") {
+  id: ID! @external
+}
+
 type LikePostInteraction {
   userId: String
   timestamp: String
+  liker: User @provides(fields: "id")
 }
 
 type CommentPostInteraction {

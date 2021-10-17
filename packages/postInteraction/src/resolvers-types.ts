@@ -31,6 +31,7 @@ export type CommentPostResult = {
 
 export type LikePostInteraction = {
   __typename?: 'LikePostInteraction';
+  liker?: Maybe<User>;
   timestamp?: Maybe<Scalars['String']>;
   userId?: Maybe<Scalars['String']>;
 };
@@ -83,6 +84,11 @@ export type Query = {
 
 export type QueryInteractionByPostIdArgs = {
   postId: Scalars['String'];
+};
+
+export type User = {
+  __typename?: 'User';
+  id: Scalars['ID'];
 };
 
 
@@ -176,6 +182,7 @@ export type ResolversTypes = {
   ID: ResolverTypeWrapper<Scalars['ID']>;
   PostInteraction: ResolverTypeWrapper<PostInteraction>;
   Query: ResolverTypeWrapper<{}>;
+  User: ResolverTypeWrapper<User>;
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
 };
 
@@ -192,6 +199,7 @@ export type ResolversParentTypes = {
   ID: Scalars['ID'];
   PostInteraction: PostInteraction;
   Query: {};
+  User: User;
   Boolean: Scalars['Boolean'];
 };
 
@@ -210,6 +218,7 @@ export type CommentPostResultResolvers<ContextType = RequestContext, ParentType 
 };
 
 export type LikePostInteractionResolvers<ContextType = RequestContext, ParentType extends ResolversParentTypes['LikePostInteraction'] = ResolversParentTypes['LikePostInteraction']> = {
+  liker?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>;
   timestamp?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   userId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
@@ -249,6 +258,12 @@ export type QueryResolvers<ContextType = RequestContext, ParentType extends Reso
   interactionByPostId?: Resolver<Maybe<ResolversTypes['PostInteraction']>, ParentType, ContextType, RequireFields<QueryInteractionByPostIdArgs, 'postId'>>;
 };
 
+export type UserResolvers<ContextType = RequestContext, ParentType extends ResolversParentTypes['User'] = ResolversParentTypes['User']> = {
+  __resolveReference?: ReferenceResolver<Maybe<ResolversTypes['User']>, { __typename: 'User' } & GraphQLRecursivePick<ParentType, {"id":true}>, ContextType>;
+  id?: Resolver<ResolversTypes['ID'], { __typename: 'User' } & GraphQLRecursivePick<ParentType, {"id":true}>, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
 export type Resolvers<ContextType = RequestContext> = {
   CommentPostInteraction?: CommentPostInteractionResolvers<ContextType>;
   CommentPostResult?: CommentPostResultResolvers<ContextType>;
@@ -258,5 +273,6 @@ export type Resolvers<ContextType = RequestContext> = {
   Post?: PostResolvers<ContextType>;
   PostInteraction?: PostInteractionResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;
+  User?: UserResolvers<ContextType>;
 };
 
