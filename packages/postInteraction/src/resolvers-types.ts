@@ -58,12 +58,18 @@ export type MutationLikePostArgs = {
   postId: Scalars['String'];
 };
 
+export type Post = {
+  __typename?: 'Post';
+  id: Scalars['ID'];
+  postInteraction?: Maybe<PostInteraction>;
+};
+
 export type PostInteraction = {
   __typename?: 'PostInteraction';
   comments?: Maybe<Array<Maybe<CommentPostInteraction>>>;
   createdAt?: Maybe<Scalars['String']>;
   likes?: Maybe<Array<Maybe<LikePostInteraction>>>;
-  postId?: Maybe<Scalars['String']>;
+  postId: Scalars['String'];
   updatedAt?: Maybe<Scalars['String']>;
 };
 
@@ -81,6 +87,17 @@ export type QueryInteractionByPostIdArgs = {
 
 export type ResolverTypeWrapper<T> = Promise<T> | T;
 
+export type ReferenceResolver<TResult, TReference, TContext> = (
+      reference: TReference,
+      context: TContext,
+      info: GraphQLResolveInfo
+    ) => Promise<TResult> | TResult;
+
+      type ScalarCheck<T, S> = S extends true ? T : NullableCheck<T, S>;
+      type NullableCheck<T, S> = Maybe<T> extends T ? Maybe<ListCheck<NonNullable<T>, S>> : ListCheck<T, S>;
+      type ListCheck<T, S> = T extends (infer U)[] ? NullableCheck<U, S>[] : GraphQLRecursivePick<T, S>;
+      export type GraphQLRecursivePick<T, S> = { [K in keyof T & keyof S]: ScalarCheck<T[K], S[K]> };
+    
 
 export type ResolverWithResolve<TResult, TParent, TContext, TArgs> = {
   resolve: ResolverFn<TResult, TParent, TContext, TArgs>;
@@ -153,6 +170,8 @@ export type ResolversTypes = {
   LikePostResult: ResolverTypeWrapper<LikePostResult>;
   Int: ResolverTypeWrapper<Scalars['Int']>;
   Mutation: ResolverTypeWrapper<{}>;
+  Post: ResolverTypeWrapper<Post>;
+  ID: ResolverTypeWrapper<Scalars['ID']>;
   PostInteraction: ResolverTypeWrapper<PostInteraction>;
   Query: ResolverTypeWrapper<{}>;
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
@@ -167,6 +186,8 @@ export type ResolversParentTypes = {
   LikePostResult: LikePostResult;
   Int: Scalars['Int'];
   Mutation: {};
+  Post: Post;
+  ID: Scalars['ID'];
   PostInteraction: PostInteraction;
   Query: {};
   Boolean: Scalars['Boolean'];
@@ -203,11 +224,19 @@ export type MutationResolvers<ContextType = RequestContext, ParentType extends R
   likePost?: Resolver<ResolversTypes['LikePostResult'], ParentType, ContextType, RequireFields<MutationLikePostArgs, 'postId'>>;
 };
 
+export type PostResolvers<ContextType = RequestContext, ParentType extends ResolversParentTypes['Post'] = ResolversParentTypes['Post']> = {
+  __resolveReference?: ReferenceResolver<Maybe<ResolversTypes['Post']>, { __typename: 'Post' } & GraphQLRecursivePick<ParentType, {"id":true}>, ContextType>;
+
+  postInteraction?: Resolver<Maybe<ResolversTypes['PostInteraction']>, { __typename: 'Post' } & GraphQLRecursivePick<ParentType, {"id":true}>, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
 export type PostInteractionResolvers<ContextType = RequestContext, ParentType extends ResolversParentTypes['PostInteraction'] = ResolversParentTypes['PostInteraction']> = {
+  __resolveReference?: ReferenceResolver<Maybe<ResolversTypes['PostInteraction']>, { __typename: 'PostInteraction' } & GraphQLRecursivePick<ParentType, {"postId":true}>, ContextType>;
   comments?: Resolver<Maybe<Array<Maybe<ResolversTypes['CommentPostInteraction']>>>, ParentType, ContextType>;
   createdAt?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   likes?: Resolver<Maybe<Array<Maybe<ResolversTypes['LikePostInteraction']>>>, ParentType, ContextType>;
-  postId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  postId?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   updatedAt?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
@@ -222,6 +251,7 @@ export type Resolvers<ContextType = RequestContext> = {
   LikePostInteraction?: LikePostInteractionResolvers<ContextType>;
   LikePostResult?: LikePostResultResolvers<ContextType>;
   Mutation?: MutationResolvers<ContextType>;
+  Post?: PostResolvers<ContextType>;
   PostInteraction?: PostInteractionResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;
 };

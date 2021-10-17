@@ -25,9 +25,23 @@ const Mutation: Resolvers["Mutation"] = {
 
     return await postInteractionService.commentPost(postId, user.id, body);
   }
+};
+
+const PostInteraction: Resolvers["PostInteraction"] = {
+  async __resolveReference(object, { postInteractionService }) {
+    return await postInteractionService.interactionByPostId(object.postId);
+  }
+}
+
+const Post: Resolvers["Post"] = {
+  async postInteraction(post, _, { postInteractionService}) {
+    return await postInteractionService.interactionByPostId(post.id);
+  }
 }
 
 export const resolvers: Resolvers = {
   Query,
   Mutation,
+  PostInteraction,
+  Post
 }

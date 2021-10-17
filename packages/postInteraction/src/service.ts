@@ -14,7 +14,7 @@ class PostInteractionService {
     if (result === null) return null;
 
     const postInteractionCls = plainToClass(PostInteraction, result);
-    return postInteractionCls.serialize();
+    return postInteractionCls.toJson();
   }
 
   async likePost(postId: string, userId: string) {

@@ -7,6 +7,11 @@ extend type Mutation {
   commentPost(postId: String!, body: String!): CommentPostResult!
 }
 
+extend type Post @key(fields: "id") {
+  id: ID! @external
+  postInteraction: PostInteraction
+}
+
 type LikePostInteraction {
   userId: String
   timestamp: String
@@ -19,8 +24,8 @@ type CommentPostInteraction {
   timestamp: String
 }
 
-type PostInteraction {
-  postId: String
+type PostInteraction @key(fields: "postId") {
+  postId: String!
   likes: [LikePostInteraction]
   comments: [CommentPostInteraction]
   updatedAt: String
