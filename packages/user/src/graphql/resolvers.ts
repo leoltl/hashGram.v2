@@ -7,7 +7,7 @@ const User: Resolvers['User'] = {
   async followers(user, _, { userService }) {
     return await userService.getFollowers(user.id);
   },
-  async followees(user, _, { userService }) {
+  async following(user, _, { userService }) {
     return await userService.getFollowees(user.id);
   }
 }

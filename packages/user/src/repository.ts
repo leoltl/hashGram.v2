@@ -56,30 +56,32 @@ class UserRepository implements IUserRepository {
     const user = await this.UserDb.findUnique({
       where: { id: userId },
       include: {
-        followers: {
+        followees: {
           include: {
             follower: true
           }
         },
       }
     });
+
     if (!user) return null;
-    return user?.followers.map(({ follower }) => follower);
+    return user?.followees.map(({ follower }) => follower);
   }
 
   async getFollowees(userId: string) {
     const user = await this.UserDb.findUnique({
       where: { id: userId },
       include: {
-        followees: {
+        followers: {
           include: {
             followee: true
           }
         },
       }
     });
+    
     if (!user) return null;
-    return user?.followees.map(({ followee }) => followee);
+    return user?.followers.map(({ followee }) => followee);
   }
 
   async toggleFollow(followee: string, follower: string) {

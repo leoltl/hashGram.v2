@@ -13,7 +13,7 @@ type User @key(fields: "id") {
   name: String
   email: String!
   followers: [User]
-  followees: [User]
+  following: [User]
 }
 
 type SignInResult {
