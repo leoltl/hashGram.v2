@@ -35,6 +35,14 @@ class UserService {
       return userCls.serialize();
     });
   }
+
+  async getFollowers(userId: string) {
+    return await this.userRepository.getFollowers(userId);
+  }
+
+  async getFollowees(userId: string) {
+    return await this.userRepository.getFollowees(userId);
+  }
   
   async signUp(input: SignUpInput) {
 
@@ -81,6 +89,15 @@ class UserService {
     }
 
     return null;
+  }
+
+  async toggleFollow(userIdToFollow: string, followerId: string) {
+    // @TODO: check for valid userIds.
+
+    const followingResult = 
+      await this.userRepository.toggleFollow(userIdToFollow, followerId);
+
+    return followingResult;
   }
 
   private async hashPassword(plainText: string) {

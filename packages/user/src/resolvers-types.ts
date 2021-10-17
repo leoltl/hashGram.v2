@@ -15,10 +15,22 @@ export type Scalars = {
   _FieldSet: any;
 };
 
+export type FollowUserResult = {
+  __typename?: 'FollowUserResult';
+  following?: Maybe<Scalars['Boolean']>;
+  message?: Maybe<Scalars['String']>;
+};
+
 export type Mutation = {
   __typename?: 'Mutation';
+  followUser: FollowUserResult;
   signIn: SignInResult;
   signUp: User;
+};
+
+
+export type MutationFollowUserArgs = {
+  userToFollow: Scalars['String'];
 };
 
 
@@ -62,6 +74,8 @@ export type SignUpInput = {
 export type User = {
   __typename?: 'User';
   email: Scalars['String'];
+  followees?: Maybe<Array<Maybe<User>>>;
+  followers?: Maybe<Array<Maybe<User>>>;
   id: Scalars['ID'];
   name?: Maybe<Scalars['String']>;
 };
@@ -146,31 +160,40 @@ export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs
 
 /** Mapping between all available schema types and the resolvers types */
 export type ResolversTypes = {
+  FollowUserResult: ResolverTypeWrapper<FollowUserResult>;
+  Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
+  String: ResolverTypeWrapper<Scalars['String']>;
   Mutation: ResolverTypeWrapper<{}>;
   Query: ResolverTypeWrapper<{}>;
-  String: ResolverTypeWrapper<Scalars['String']>;
   SignInInput: SignInInput;
   SignInResult: ResolverTypeWrapper<SignInResult>;
   SignUpInput: SignUpInput;
   User: ResolverTypeWrapper<User>;
   ID: ResolverTypeWrapper<Scalars['ID']>;
-  Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
 };
 
 /** Mapping between all available schema types and the resolvers parents */
 export type ResolversParentTypes = {
+  FollowUserResult: FollowUserResult;
+  Boolean: Scalars['Boolean'];
+  String: Scalars['String'];
   Mutation: {};
   Query: {};
-  String: Scalars['String'];
   SignInInput: SignInInput;
   SignInResult: SignInResult;
   SignUpInput: SignUpInput;
   User: User;
   ID: Scalars['ID'];
-  Boolean: Scalars['Boolean'];
+};
+
+export type FollowUserResultResolvers<ContextType = RequestContext, ParentType extends ResolversParentTypes['FollowUserResult'] = ResolversParentTypes['FollowUserResult']> = {
+  following?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
+  message?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
 export type MutationResolvers<ContextType = RequestContext, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = {
+  followUser?: Resolver<ResolversTypes['FollowUserResult'], ParentType, ContextType, RequireFields<MutationFollowUserArgs, 'userToFollow'>>;
   signIn?: Resolver<ResolversTypes['SignInResult'], ParentType, ContextType, RequireFields<MutationSignInArgs, 'input'>>;
   signUp?: Resolver<ResolversTypes['User'], ParentType, ContextType, RequireFields<MutationSignUpArgs, 'input'>>;
 };
@@ -188,12 +211,15 @@ export type SignInResultResolvers<ContextType = RequestContext, ParentType exten
 export type UserResolvers<ContextType = RequestContext, ParentType extends ResolversParentTypes['User'] = ResolversParentTypes['User']> = {
   __resolveReference?: ReferenceResolver<Maybe<ResolversTypes['User']>, { __typename: 'User' } & GraphQLRecursivePick<ParentType, {"id":true}>, ContextType>;
   email?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  followees?: Resolver<Maybe<Array<Maybe<ResolversTypes['User']>>>, ParentType, ContextType>;
+  followers?: Resolver<Maybe<Array<Maybe<ResolversTypes['User']>>>, ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   name?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
 export type Resolvers<ContextType = RequestContext> = {
+  FollowUserResult?: FollowUserResultResolvers<ContextType>;
   Mutation?: MutationResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;
   SignInResult?: SignInResultResolvers<ContextType>;

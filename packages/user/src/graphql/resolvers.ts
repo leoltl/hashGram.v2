@@ -3,6 +3,12 @@ import type { Resolvers } from "../resolvers-types";
 const User: Resolvers['User'] = {
   async __resolveReference(object, { userLoader }) {
     return userLoader.load(object.id)
+  },
+  async followers(user, _, { userService }) {
+    return await userService.getFollowers(user.id);
+  },
+  async followees(user, _, { userService }) {
+    return await userService.getFollowees(user.id);
   }
 }
 
@@ -31,6 +37,23 @@ const Mutation: Resolvers["Mutation"] = {
       token: tokenManager.sign(userOrNull),
       message: null
     }
+  },
+  async followUser(_, args, { userService, user }) {
+    const { userToFollow } = args;
+    
+    if (user === null) {
+      return {
+        message: "Unauthorized: Sign in to follow someone",
+      }
+    }
+
+    if (userToFollow === user.id) {
+      return {
+        message: "Bad Request: You cannot follow yourself",
+      }
+    }
+
+    return await userService.toggleFollow(userToFollow, user.id);
   }
 };
 

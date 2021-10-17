@@ -21,7 +21,7 @@ export interface JWTUser {
 }
 
 function loadServices() {
-	const repository = new UserRepository(prisma.user);
+	const repository = new UserRepository(prisma.user, prisma.following);
 	const userService = new UserService(repository);
 	return { userService };
 }

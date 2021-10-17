@@ -9,13 +9,25 @@ generator client {
 }
 
 model User {
-  id           String   @id @default(uuid())
-  createdAt    DateTime @default(now())
-  email        String   @unique
+  id           String      @id @default(uuid())
+  createdAt    DateTime    @default(now())
+  email        String      @unique
   name         String?
-  role         Role     @default(USER)
-  isDeleted    Boolean  @default(false)
+  role         Role        @default(USER)
+  isDeleted    Boolean     @default(false)
   passwordHash String
+  followers    Following[] @relation(name: "follower")
+  followees    Following[] @relation(name: "followee")
+}
+
+model Following {
+  follower   User     @relation(name: "follower", fields: [followerId], references: [id])
+  followerId String
+  followee   User     @relation(name: "followee", fields: [followeeId], references: [id])
+  followeeId String
+  timestamp  DateTime @default(now())
+
+  @@id([followeeId, followerId])
 }
 
 enum Role {

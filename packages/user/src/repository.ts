@@ -4,7 +4,8 @@ import { IUserRepository } from "./types";
 class UserRepository implements IUserRepository {
 
   constructor(
-    private UserDb: PrismaClient["user"]
+    private UserDb: PrismaClient["user"],
+    private FollowingDb: PrismaClient["following"]
   ) {}
 
   async get(where: Prisma.UserWhereUniqueInput) {
@@ -49,6 +50,69 @@ class UserRepository implements IUserRepository {
       data: { isDeleted: true }
     });
     return deletedUser.id;
+  }
+
+  async getFollowers(userId: string) {
+    const user = await this.UserDb.findUnique({
+      where: { id: userId },
+      include: {
+        followers: {
+          include: {
+            follower: true
+          }
+        },
+      }
+    });
+    if (!user) return null;
+    return user?.followers.map(({ follower }) => follower);
+  }
+
+  async getFollowees(userId: string) {
+    const user = await this.UserDb.findUnique({
+      where: { id: userId },
+      include: {
+        followees: {
+          include: {
+            followee: true
+          }
+        },
+      }
+    });
+    if (!user) return null;
+    return user?.followees.map(({ followee }) => followee);
+  }
+
+  async toggleFollow(followee: string, follower: string) {
+    const compositeKey = {
+      followeeId: followee,
+      followerId: follower,
+    } as const;
+
+    const existingFollowing = await this.FollowingDb.findUnique({
+      where: {
+        followeeId_followerId: compositeKey
+      }
+    });
+
+    if (existingFollowing) {
+      await this.FollowingDb.delete({
+        where: {
+          followeeId_followerId: compositeKey
+        }
+      });
+
+      return {
+        following: false
+      }
+    }
+
+    await this.FollowingDb.create({
+      data: compositeKey,
+    });
+
+    return {
+      following: true
+    }
   }
 }
 

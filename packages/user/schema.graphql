@@ -5,16 +5,24 @@ extend type Query {
 extend type Mutation {
   signUp(input: SignUpInput!): User!
   signIn(input: SignInInput!): SignInResult!
+  followUser(userToFollow: String!): FollowUserResult!
 }
 
 type User @key(fields: "id") {
   id: ID!
   name: String
   email: String!
+  followers: [User]
+  followees: [User]
 }
 
 type SignInResult {
   token: String
+  message: String
+}
+
+type FollowUserResult {
+  following: Boolean
   message: String
 }
 
