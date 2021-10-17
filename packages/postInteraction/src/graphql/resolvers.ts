@@ -60,6 +60,16 @@ const LikePostInteraction: Resolvers["LikePostInteraction"] = {
       id: likePostInteraction.userId,
     }
   }
+};
+
+const CommentPostInteraction: Resolvers["CommentPostInteraction"] = {
+  async commenter(commentPostInteraction) {
+    if (!commentPostInteraction.userId) return null;
+    return {
+      __typename: "User",
+      id: commentPostInteraction.userId,
+    }
+  }
 }
 
 export const resolvers: Resolvers = {
@@ -67,5 +77,6 @@ export const resolvers: Resolvers = {
   Mutation,
   PostInteraction,
   Post,
-  LikePostInteraction
+  LikePostInteraction,
+  CommentPostInteraction
 }

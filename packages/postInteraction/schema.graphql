@@ -27,6 +27,7 @@ type CommentPostInteraction {
   userId: String
   body: String
   timestamp: String
+  commenter: User @provides(fields: "id")
 }
 
 type PostInteraction @key(fields: "postId") {

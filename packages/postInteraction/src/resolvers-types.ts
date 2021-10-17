@@ -18,6 +18,7 @@ export type Scalars = {
 export type CommentPostInteraction = {
   __typename?: 'CommentPostInteraction';
   body?: Maybe<Scalars['String']>;
+  commenter?: Maybe<User>;
   id?: Maybe<Scalars['String']>;
   timestamp?: Maybe<Scalars['String']>;
   userId?: Maybe<Scalars['String']>;
@@ -205,6 +206,7 @@ export type ResolversParentTypes = {
 
 export type CommentPostInteractionResolvers<ContextType = RequestContext, ParentType extends ResolversParentTypes['CommentPostInteraction'] = ResolversParentTypes['CommentPostInteraction']> = {
   body?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  commenter?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>;
   id?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   timestamp?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   userId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
