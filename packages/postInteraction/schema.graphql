@@ -27,7 +27,9 @@ type CommentPostInteraction {
 type PostInteraction @key(fields: "postId") {
   postId: String!
   likes: [LikePostInteraction]
+  likesCount: Int
   comments: [CommentPostInteraction]
+  commentsCount: Int
   updatedAt: String
   createdAt: String
 }

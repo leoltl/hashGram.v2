@@ -30,14 +30,27 @@ const Mutation: Resolvers["Mutation"] = {
 const PostInteraction: Resolvers["PostInteraction"] = {
   async __resolveReference(object, { postInteractionService }) {
     return await postInteractionService.interactionByPostId(object.postId);
+  },
+  likesCount(postInteraction) {
+    if (postInteraction.likes) {
+      return postInteraction.likes.length;
+    }
+    return null;
+  },
+  commentsCount(postInteraction) {
+    if (postInteraction.comments) {
+      return postInteraction.comments.length;
+    }
+    return null;
   }
-}
+};
+
 
 const Post: Resolvers["Post"] = {
   async postInteraction(post, _, { postInteractionService}) {
     return await postInteractionService.interactionByPostId(post.id);
   }
-}
+};
 
 export const resolvers: Resolvers = {
   Query,

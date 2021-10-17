@@ -67,8 +67,10 @@ export type Post = {
 export type PostInteraction = {
   __typename?: 'PostInteraction';
   comments?: Maybe<Array<Maybe<CommentPostInteraction>>>;
+  commentsCount?: Maybe<Scalars['Int']>;
   createdAt?: Maybe<Scalars['String']>;
   likes?: Maybe<Array<Maybe<LikePostInteraction>>>;
+  likesCount?: Maybe<Scalars['Int']>;
   postId: Scalars['String'];
   updatedAt?: Maybe<Scalars['String']>;
 };
@@ -234,8 +236,10 @@ export type PostResolvers<ContextType = RequestContext, ParentType extends Resol
 export type PostInteractionResolvers<ContextType = RequestContext, ParentType extends ResolversParentTypes['PostInteraction'] = ResolversParentTypes['PostInteraction']> = {
   __resolveReference?: ReferenceResolver<Maybe<ResolversTypes['PostInteraction']>, { __typename: 'PostInteraction' } & GraphQLRecursivePick<ParentType, {"postId":true}>, ContextType>;
   comments?: Resolver<Maybe<Array<Maybe<ResolversTypes['CommentPostInteraction']>>>, ParentType, ContextType>;
+  commentsCount?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
   createdAt?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   likes?: Resolver<Maybe<Array<Maybe<ResolversTypes['LikePostInteraction']>>>, ParentType, ContextType>;
+  likesCount?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
   postId?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   updatedAt?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
