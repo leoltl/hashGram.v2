@@ -1,0 +1,11 @@
+{
+  "compilerOptions": {
+    "outDir": "dist",
+    "esModuleInterop": true,
+    "rootDir": "src/",
+    "strictPropertyInitialization": false,
+    "experimentalDecorators": true
+  },
+  "extends": "@tsconfig/node14/tsconfig.json",
+  "include": ["./src"]
+}

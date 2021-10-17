@@ -1,17 +1,24 @@
 const SERVICES = {
     USER: 'user',
     POST: 'post',
+    POST_INTERACTION: 'post-interaction',
   }
 
 export const servicesMap = {
     USER: {
         name: SERVICES.USER,
-        port: 3002,
+        port: 3001,
         host: "http://localhost",
         endpoint: "graphql"
     },
     POST: {
         name: SERVICES.POST,
+        port: 3002,
+        host: "http://localhost",
+        endpoint: "graphql"
+    },
+    POST_INTERACTION: {
+        name: SERVICES.POST_INTERACTION,
         port: 3003,
         host: "http://localhost",
         endpoint: "graphql"

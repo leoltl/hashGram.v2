@@ -1,0 +1,32 @@
+extend type Query {
+  interactionByPostId(postId: String): PostInteraction
+}
+
+extend type Mutation {
+  likePost(postId: String!): LikePostResult!
+}
+
+type LikePostInteraction {
+  userId: String
+  timestamp: String
+}
+
+type CommentPostInteraction {
+  id: String
+  userId: String
+  body: String
+  timestamp: String
+}
+
+type PostInteraction {
+  postId: String
+  likes: [LikePostInteraction]
+  comments: [CommentPostInteraction]
+  updatedAt: String
+  createdAt: String
+}
+
+type LikePostResult {
+  likes: Int
+  message: String
+}

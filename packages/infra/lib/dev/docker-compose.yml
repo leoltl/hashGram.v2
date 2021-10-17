@@ -11,6 +11,13 @@ services:
       POSTGRES_USER: postgres
     volumes:
       - postgres-data:/var/lib/postgresql/data
+  mongodb:
+    image: mongo
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodb-data:/data/db
 
 volumes:
   postgres-data:
+  mongodb-data:
