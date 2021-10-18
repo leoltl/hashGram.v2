@@ -21,10 +21,21 @@ module.exports = {
     rules: [
       {
         test: /\.tsx?$/,
-        loader: 'ts-loader',
-        options: {
-          configFile: 'tsconfig.client.json',
-        },
+        use: [
+          {
+            loader: 'babel-loader',
+            options: {
+              presets: ['@babel/preset-env'],
+              plugins: ['@emotion/babel-plugin']
+            }
+          },
+          {
+            loader: 'ts-loader',
+            options: {
+              configFile: 'tsconfig.client.json',
+            },
+          }
+        ]
       },
     ],
   },

@@ -6,7 +6,7 @@ import {
   NormalizedCacheObject 
 } from '@apollo/client';
 import { StaticRouter } from 'react-router';
-import { App } from "../client/components/app";
+import App from "../client/App";
 
 import type Express from "express";
 export const ssr: React.FC<{ 
