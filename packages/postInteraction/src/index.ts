@@ -5,7 +5,7 @@ import { ApolloServer } from 'apollo-server-express';
 import { ApolloServerPluginDrainHttpServer } from 'apollo-server-core';
 import { schema } from "./graphql";
 import { servicesMap } from "@leoltl/infra";
-import { MongoDB } from "./database";
+import { MongoDB, POST_INTERACTION_COLLECTION_NAME } from "./database";
 import PostInteractionRepository from "./repository";
 import PostInteractionService from "./service";
 
@@ -17,7 +17,9 @@ import type { Db } from "mongodb";
 const PORT = servicesMap.POST_INTERACTION.port;
 
 function loadServices(db: Db) {
-  const repository = new PostInteractionRepository(db.collection("postInteraction"));
+  const repository = new PostInteractionRepository(
+    db.collection(POST_INTERACTION_COLLECTION_NAME)
+  );
   const postInteractionService = new PostInteractionService(repository); 
   
   return {

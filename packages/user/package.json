@@ -11,7 +11,8 @@
     "build": "tsc --declaration",
     "start": "yarn build && node dist/index.js",
     "watch": "yarn codegen && tsc-watch --onSuccess \"node dist/index.js\"",
-    "codegen": "yarn prisma generate && yarn graphql-codegen"
+    "codegen": "yarn prisma generate && yarn graphql-codegen",
+    "db:seed": "ts-node ./prisma/seed.ts"
   },
   "dependencies": {
     "@apollo/federation": "^0.33.3",
@@ -32,6 +33,7 @@
     "@graphql-codegen/cli": "^2.2.1",
     "@graphql-codegen/typescript": "^2.2.4",
     "@graphql-codegen/typescript-resolvers": "^2.3.2",
-    "prisma": "^3.2.1"
+    "prisma": "^3.2.1",
+    "ts-node": "^10.3.0"
   }
 }

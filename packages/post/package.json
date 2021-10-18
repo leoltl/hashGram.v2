@@ -11,7 +11,8 @@
     "build": "tsc --declaration",
     "start": "yarn build && node dist/index.js",
     "watch": "tsc-watch --onSuccess \"node dist/index.js\"",
-    "codegen": "yarn prisma generate && yarn graphql-codegen"
+    "codegen": "yarn prisma generate && yarn graphql-codegen",
+    "db:seed": "ts-node ./prisma/seed.ts"
   },
   "dependencies": {
     "@google-cloud/storage": "^5.15.3",
@@ -24,9 +25,10 @@
     "uuid": "^8.3.2"
   },
   "devDependencies": {
-    "prisma": "^3.2.1",
     "@graphql-codegen/cli": "^2.2.1",
     "@graphql-codegen/typescript": "^2.2.4",
-    "@graphql-codegen/typescript-resolvers": "^2.3.2"
+    "@graphql-codegen/typescript-resolvers": "^2.3.2",
+    "prisma": "^3.2.1",
+    "ts-node": "^10.3.0"
   }
 }

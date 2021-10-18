@@ -11,7 +11,8 @@
     "build": "tsc --declaration",
     "start": "yarn build && node dist/index.js",
     "watch": "tsc-watch --onSuccess \"node dist/index.js\"",
-    "codegen": "yarn graphql-codegen"
+    "codegen": "yarn graphql-codegen",
+    "db:seed": "ts-node ./src/database/seed.ts"
   },
   "dependencies": {
     "@leoltl/infra": "file:../infra",
@@ -28,6 +29,7 @@
   "devDependencies": {
     "@graphql-codegen/cli": "^2.2.1",
     "@graphql-codegen/typescript": "^2.2.4",
-    "@graphql-codegen/typescript-resolvers": "^2.3.2"
+    "@graphql-codegen/typescript-resolvers": "^2.3.2",
+    "ts-node": "^10.3.0"
   }
 }

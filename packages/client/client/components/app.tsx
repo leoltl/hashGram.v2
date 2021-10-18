@@ -17,8 +17,5 @@ export const App: React.FC = () => {
 
   const { data, error } = useQuery(ANY_QUERY);
 
-  console.log('data', data);
-  console.log('error', error)
-
   return <p>Hello from Client testing recompile</p>
 };

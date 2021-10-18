@@ -32,3 +32,5 @@ export const getServiceList = (env?: 'dev' | 'prod') => {
         url: `${host}:${port}/${endpoint}`
     }));
 }
+
+export * from "./seed";
