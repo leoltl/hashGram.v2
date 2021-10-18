@@ -9,7 +9,11 @@ import { ApolloClient, InMemoryCache } from '@apollo/client';
 import { ssr as App } from './ssr';
 import { getDataFromTree } from '@apollo/client/react/ssr';
 
-const PORT = 3006;
+import { servicesMap } from "@leoltl/infra";
+
+const PORT = servicesMap.CLIENT.port;
+
+const { GATEWAY } = servicesMap;
 
 const server = express();
 
@@ -31,7 +35,7 @@ server.use(async (request, res) => {
 
   const client = new ApolloClient({
     ssrMode: true,
-    uri:"http://localhost:3000/graphql",
+    uri: `${GATEWAY.host}:${GATEWAY.port}/${GATEWAY.endpoint}`,
     // link: createHttpLink({
     //   uri: "http://localhost:3000/graphql"
     // }),

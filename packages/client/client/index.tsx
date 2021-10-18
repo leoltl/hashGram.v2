@@ -9,6 +9,10 @@ import {
 import { createHttpLink } from 'apollo-link-http';
 import { BrowserRouter as Router } from 'react-router-dom';
 
+import { servicesMap } from "@leoltl/infra";
+
+const { GATEWAY } = servicesMap;
+
 const state = (window as any).__APOLLO_STATE__;
 
 delete (window as any).__APOLLO_STATE__;
@@ -16,7 +20,7 @@ delete (window as any).__APOLLO_STATE__;
 const client = new ApolloClient({
   ssrMode: true,
   cache: new InMemoryCache().restore(state),
-  uri:"http://localhost:3000/graphql",
+  uri: `${GATEWAY.host}:${GATEWAY.port}/${GATEWAY.endpoint}`,
   // link: createHttpLink({
   //   uri: "http://localhost:3000/graphql"
   // }),
