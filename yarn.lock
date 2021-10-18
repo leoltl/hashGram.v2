@@ -231,7 +231,7 @@
   dependencies:
     "@apollo/federation" "^0.33.3"
     "@apollo/gateway" "^0.42.3"
-    "@leoltl/infra" "file:../../../Library/Caches/Yarn/v6/npm-@leoltl-gateway-0.0.0-fc92be72-77f5-4c43-ae34-d011709b4eba-1634436723874/node_modules/@leoltl/infra"
+    "@leoltl/infra" "file:../../../Library/Caches/Yarn/v6/npm-@leoltl-gateway-0.0.0-32ee2190-9871-40c9-a2a1-046b7d7d074f-1634518259014/node_modules/@leoltl/infra"
     apollo-server "^3.4.0"
     apollo-server-express "^3.4.0"
     express "^4.17.1"
@@ -245,7 +245,7 @@
   version "0.0.0"
   dependencies:
     "@google-cloud/storage" "^5.15.3"
-    "@leoltl/user" "file:../../../Library/Caches/Yarn/v6/npm-@leoltl-post-0.0.0-6be0ea1f-6291-4f02-afec-3455b332ddb5-1634436723976/node_modules/@leoltl/user"
+    "@leoltl/user" "file:../../../Library/Caches/Yarn/v6/npm-@leoltl-post-0.0.0-554343ab-8c04-42ee-951e-b58bceebaab8-1634518259121/node_modules/@leoltl/user"
     "@prisma/client" "^3.2.1"
     apollo-server-core "^3.4.0"
     apollo-server-express "^3.4.0"
@@ -257,12 +257,13 @@
   version "0.0.0"
   dependencies:
     "@apollo/federation" "^0.33.3"
-    "@leoltl/infra" "file:../../../Library/Caches/Yarn/v6/npm-@leoltl-user-0.0.0-15b3dc8f-2634-410a-a85d-46608d987f9f-1634436724007/node_modules/@leoltl/infra"
+    "@leoltl/infra" "file:../../../Library/Caches/Yarn/v6/npm-@leoltl-user-0.0.0-3b9615ac-7381-4a8d-ab41-e1ac39b6779c-1634518259146/node_modules/@leoltl/infra"
     "@prisma/client" "^3.2.1"
     apollo-server-core "^3.4.0"
     apollo-server-express "^3.4.0"
     bcrypt "^5.0.1"
     class-transformer "^0.4.0"
+    dataloader "^2.0.0"
     express "^4.17.1"
     graphql "^15.6.1"
     jsonwebtoken "^8.5.1"
@@ -2232,6 +2233,11 @@ dashdash@^1.12.0:
   integrity sha1-hTz6D3y+L+1d4gMmuN1YEDX24vA=
   dependencies:
     assert-plus "^1.0.0"
+
+dataloader@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/dataloader/-/dataloader-2.0.0.tgz#41eaf123db115987e21ca93c005cd7753c55fe6f"
+  integrity sha512-YzhyDAwA4TaQIhM5go+vCLmU0UikghC/t9DTQYZR2M/UvZ1MdOhPezSDZcjj9uqQJOMqjLcpWtyW2iNINdlatQ==
 
 date-and-time@^2.0.0:
   version "2.0.1"

@@ -7,6 +7,7 @@ import { createHttpLink } from 'apollo-link-http';
 import { ApolloClient, InMemoryCache } from '@apollo/client';
 
 import { ssr as App } from './ssr';
+import { getDataFromTree } from '@apollo/client/react/ssr';
 
 const PORT = 3006;
 
@@ -26,7 +27,7 @@ const HtmlTemplate = fs.readFileSync(
 
 const assets = JSON.parse(manifest);
 
-server.use((request, res) => {
+server.use(async (request, res) => {
 
   const client = new ApolloClient({
     ssrMode: true,
@@ -39,20 +40,20 @@ server.use((request, res) => {
 
   const context = {};
 
-  const component = ReactDOMServer.renderToString(
-    React.createElement(App, { context, request, client }),
-  );
+  const AppRendered =  React.createElement(App, { context, request, client });
+
+  await getDataFromTree(AppRendered);
+
+  const content = ReactDOMServer.renderToString(AppRendered);
 
   const apolloInitialState = JSON.stringify(
     client.extract()
   ).replace(/</g, '\\u003c');
 
   const html = HtmlTemplate
-    .replace("%CONTENT%", component)
+    .replace("%CONTENT%", content)
     .replace("%SCRIPT%", assets["client.js"])
     .replace("%CACHE_STATE%", apolloInitialState);
-
-  console.log('html', html)
 
   res.send(html)
 });
