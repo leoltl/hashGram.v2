@@ -47,7 +47,8 @@ export type PostCreateResult = {
 export type Query = {
   __typename?: 'Query';
   postById?: Maybe<Post>;
-  postByUser?: Maybe<Array<Maybe<Post>>>;
+  postByUser?: Maybe<Array<Post>>;
+  postFeed?: Maybe<Array<Post>>;
   postUploadSignedUrl: Scalars['String'];
 };
 
@@ -64,7 +65,7 @@ export type QueryPostByUserArgs = {
 export type User = {
   __typename?: 'User';
   id: Scalars['ID'];
-  posts?: Maybe<Array<Maybe<Post>>>;
+  posts?: Maybe<Array<Post>>;
 };
 
 
@@ -193,14 +194,15 @@ export type PostCreateResultResolvers<ContextType = RequestContext, ParentType e
 
 export type QueryResolvers<ContextType = RequestContext, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
   postById?: Resolver<Maybe<ResolversTypes['Post']>, ParentType, ContextType, RequireFields<QueryPostByIdArgs, 'id'>>;
-  postByUser?: Resolver<Maybe<Array<Maybe<ResolversTypes['Post']>>>, ParentType, ContextType, RequireFields<QueryPostByUserArgs, 'userId'>>;
+  postByUser?: Resolver<Maybe<Array<ResolversTypes['Post']>>, ParentType, ContextType, RequireFields<QueryPostByUserArgs, 'userId'>>;
+  postFeed?: Resolver<Maybe<Array<ResolversTypes['Post']>>, ParentType, ContextType>;
   postUploadSignedUrl?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
 };
 
 export type UserResolvers<ContextType = RequestContext, ParentType extends ResolversParentTypes['User'] = ResolversParentTypes['User']> = {
   __resolveReference?: ReferenceResolver<Maybe<ResolversTypes['User']>, { __typename: 'User' } & GraphQLRecursivePick<ParentType, {"id":true}>, ContextType>;
   id?: Resolver<ResolversTypes['ID'], { __typename: 'User' } & GraphQLRecursivePick<ParentType, {"id":true}>, ContextType>;
-  posts?: Resolver<Maybe<Array<Maybe<ResolversTypes['Post']>>>, { __typename: 'User' } & GraphQLRecursivePick<ParentType, {"id":true}>, ContextType>;
+  posts?: Resolver<Maybe<Array<ResolversTypes['Post']>>, { __typename: 'User' } & GraphQLRecursivePick<ParentType, {"id":true}>, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 

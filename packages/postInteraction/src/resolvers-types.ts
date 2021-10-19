@@ -26,7 +26,7 @@ export type CommentPostInteraction = {
 
 export type CommentPostResult = {
   __typename?: 'CommentPostResult';
-  comments?: Maybe<Array<Maybe<CommentPostInteraction>>>;
+  comments?: Maybe<Array<CommentPostInteraction>>;
   message?: Maybe<Scalars['String']>;
 };
 
@@ -68,10 +68,10 @@ export type Post = {
 
 export type PostInteraction = {
   __typename?: 'PostInteraction';
-  comments?: Maybe<Array<Maybe<CommentPostInteraction>>>;
+  comments?: Maybe<Array<CommentPostInteraction>>;
   commentsCount?: Maybe<Scalars['Int']>;
   createdAt?: Maybe<Scalars['String']>;
-  likes?: Maybe<Array<Maybe<LikePostInteraction>>>;
+  likes?: Maybe<Array<LikePostInteraction>>;
   likesCount?: Maybe<Scalars['Int']>;
   postId: Scalars['String'];
   updatedAt?: Maybe<Scalars['String']>;
@@ -214,7 +214,7 @@ export type CommentPostInteractionResolvers<ContextType = RequestContext, Parent
 };
 
 export type CommentPostResultResolvers<ContextType = RequestContext, ParentType extends ResolversParentTypes['CommentPostResult'] = ResolversParentTypes['CommentPostResult']> = {
-  comments?: Resolver<Maybe<Array<Maybe<ResolversTypes['CommentPostInteraction']>>>, ParentType, ContextType>;
+  comments?: Resolver<Maybe<Array<ResolversTypes['CommentPostInteraction']>>, ParentType, ContextType>;
   message?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
@@ -246,10 +246,10 @@ export type PostResolvers<ContextType = RequestContext, ParentType extends Resol
 
 export type PostInteractionResolvers<ContextType = RequestContext, ParentType extends ResolversParentTypes['PostInteraction'] = ResolversParentTypes['PostInteraction']> = {
   __resolveReference?: ReferenceResolver<Maybe<ResolversTypes['PostInteraction']>, { __typename: 'PostInteraction' } & GraphQLRecursivePick<ParentType, {"postId":true}>, ContextType>;
-  comments?: Resolver<Maybe<Array<Maybe<ResolversTypes['CommentPostInteraction']>>>, ParentType, ContextType>;
+  comments?: Resolver<Maybe<Array<ResolversTypes['CommentPostInteraction']>>, ParentType, ContextType>;
   commentsCount?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
   createdAt?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  likes?: Resolver<Maybe<Array<Maybe<ResolversTypes['LikePostInteraction']>>>, ParentType, ContextType>;
+  likes?: Resolver<Maybe<Array<ResolversTypes['LikePostInteraction']>>, ParentType, ContextType>;
   likesCount?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
   postId?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   updatedAt?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;

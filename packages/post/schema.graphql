@@ -1,6 +1,7 @@
 extend type Query {
   postById(id: String!): Post
-  postByUser(userId: String!): [Post]
+  postByUser(userId: String!): [Post!]
+  postFeed: [Post!]
   postUploadSignedUrl: String!
 }
 
@@ -18,7 +19,7 @@ type Post @key(fields: "id") {
 
 extend type User @key(fields: "id") {
   id: ID! @external
-  posts: [Post]
+  posts: [Post!]
 }
 
 input PostCreateInput {

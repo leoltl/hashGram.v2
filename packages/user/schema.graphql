@@ -10,10 +10,10 @@ extend type Mutation {
 
 type User @key(fields: "id") {
   id: ID!
-  name: String
+  name: String!
   email: String!
-  followers: [User]
-  following: [User]
+  followers: [User!]
+  following: [User!]
 }
 
 type SignInResult {
@@ -32,7 +32,7 @@ input SignInInput {
 }
 
 input SignUpInput {
-  name: String
+  name: String!
   email: String!
   password: String!
   passwordConfirm: String!

@@ -32,9 +32,9 @@ type CommentPostInteraction {
 
 type PostInteraction @key(fields: "postId") {
   postId: String!
-  likes: [LikePostInteraction]
+  likes: [LikePostInteraction!]
   likesCount: Int
-  comments: [CommentPostInteraction]
+  comments: [CommentPostInteraction!]
   commentsCount: Int
   updatedAt: String
   createdAt: String
@@ -46,6 +46,6 @@ type LikePostResult {
 }
 
 type CommentPostResult {
-  comments: [CommentPostInteraction]
+  comments: [CommentPostInteraction!]
   message: String
 }
