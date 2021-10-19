@@ -8,10 +8,10 @@
   "main": "dist/index.js",
   "scripts": {
     "test": "echo \"Error: run tests from root\" && exit 1",
-    "build": "tsc --declaration",
+    "build": "rm -rf dist/ && tsc --declaration",
     "start": "yarn build && node dist/index.js",
     "watch": "tsc-watch --onSuccess \"node dist/index.js\"",
-    "codegen": "yarn prisma generate && yarn graphql-codegen",
+    "codegen": "rm -rf ./__generated__/ && yarn prisma generate && yarn graphql-codegen",
     "db:seed": "ts-node ./prisma/seed.ts"
   },
   "dependencies": {

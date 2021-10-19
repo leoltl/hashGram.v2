@@ -1,4 +1,4 @@
-const { PrismaClient } = require('../__generated__/client');
+const { PrismaClient } = require('../../__generated__/client');
 const prisma = new PrismaClient();
 
 const { USERS, FOLLOWINGS } = require("@leoltl/infra");

@@ -4,6 +4,7 @@
     "esModuleInterop": true,
     "strictPropertyInitialization": false,
     "experimentalDecorators": true,
+    "rootDir": "./src"
   },
   "extends": "@tsconfig/node14/tsconfig.json"
 }
