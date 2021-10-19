@@ -2,9 +2,16 @@ import React from "react";
 import { formatDistance } from 'date-fns'
 import styled from "@emotion/styled";
 
-const PostTimestamp: React.FC< { timestamp: Date }> = ({
+const PostTimestamp: React.FC< { timestamp?: Date | null }> = ({
   timestamp
 }) => {
+  if (!timestamp) {
+    return (
+      <StyledPostTimestamp>
+        Error
+      </StyledPostTimestamp>
+    )
+  }
   return (
     <StyledPostTimestamp>
       {formatDistance(

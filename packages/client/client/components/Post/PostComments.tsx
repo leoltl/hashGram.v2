@@ -6,7 +6,10 @@ interface PostCommentProps {
   comments: IPostComment[]
 }
 
-const CommentRow: React.FC<IPostComment> = ({ userName, body }) => {
+const CommentRow: React.FC<IPostComment> = ({ commenter, body }) => {
+
+  if (!commenter ||!commenter.name || !body) return null;
+
   const [textHidden, setTextHidden] = useState(true);
   
   const summary = useMemo(() => 
@@ -28,7 +31,7 @@ const CommentRow: React.FC<IPostComment> = ({ userName, body }) => {
   if (rest) {
     return (
       <StyledPostComment>
-        <StyledUserHandle>{userName}</StyledUserHandle> {summary}
+        <StyledUserHandle>{commenter.name}</StyledUserHandle> {summary}
         {
           textHidden 
             ? (
@@ -44,7 +47,7 @@ const CommentRow: React.FC<IPostComment> = ({ userName, body }) => {
 
   return (
     <StyledPostComment>
-      <StyledUserHandle>{userName}</StyledUserHandle> {body};
+      <StyledUserHandle>{commenter.name}</StyledUserHandle> {body};
     </StyledPostComment>
   )
 };
@@ -52,12 +55,16 @@ const CommentRow: React.FC<IPostComment> = ({ userName, body }) => {
 const PostComment: React.FC<PostCommentProps> = ({
   comments,
 }) => {
-  if (comments.length === 0) return null;
+  if (!comments || comments.length === 0) return null;
+  
   return (
     <div>
-      {comments.map(comment => 
-        <CommentRow key={comment.userId} {...comment} />
-      )}
+      {comments
+        .map((comment, index) => 
+          comment && 
+            <CommentRow key={comment.commenter?.id ?? index} {...comment} />)
+        .filter(Boolean)
+      }
     </div>
   )
 };

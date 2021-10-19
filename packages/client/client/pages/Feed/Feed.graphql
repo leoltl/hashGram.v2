@@ -1,0 +1,22 @@
+query GET_ALL {
+  postFeed {
+    id
+    imageUrl
+    owner {
+      id
+      name
+    }
+    postInteraction {
+      comments {
+        commenter {
+          id
+          name
+        }
+        body
+        timestamp
+      }
+      likesCount
+    }
+    createdAt
+  }
+}

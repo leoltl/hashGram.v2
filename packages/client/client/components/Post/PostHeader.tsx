@@ -2,8 +2,10 @@ import styled from "@emotion/styled";
 import React from "react";
 
 interface PostHeaderProps {
-  posterName: string;
-  posterId: string;
+  owner?: {
+    id?: string | null;
+    name?: string | null;
+  } | null
 }
 
 const MoreOption = () =>
@@ -17,16 +19,22 @@ const randomProfilePicture = (name: string) =>
   <img src={`https://avatars.dicebear.com/api/pixel-art/${name}.svg`} />
 
 const PostHeader: React.FC<PostHeaderProps> = ({
-  posterId,
-  posterName,
+  owner
 }) => {
+  if (!owner || !owner.id || !owner.name) {
+    return (
+      <StyledHeaderSection>
+        Error
+      </StyledHeaderSection>
+    )
+  }
   return (
     <StyledHeaderSection>
       <StyledProfileImage>
-        {randomProfilePicture(posterId)}
+        {randomProfilePicture(owner.id)}
       </StyledProfileImage>
       <div>
-        <span>{posterName}</span>
+        <span>{owner.name}</span>
       </div>
       <StyledAction>
         <MoreOption />

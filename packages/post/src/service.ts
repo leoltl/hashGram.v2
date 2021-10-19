@@ -30,6 +30,14 @@ class PostService {
     });
   }
 
+  async postFeed(userId: string | null) {
+    const posts = await this.postRepository.getAll();
+    return posts.map((post) => {
+      const postCls = this.instantiatePost(post);
+      return postCls.serialize();
+    });
+  }
+
   async createPost(imageUrl: string, userId: string) {
     const post = await this.postRepository.create({
       imageUrl,

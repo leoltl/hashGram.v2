@@ -7,7 +7,7 @@ export abstract class BaseUser {
   
   email: string;
   
-  name: string | null;
+  name: string;
 
   @Exclude({ toPlainOnly: true })
   isDeleted: boolean;

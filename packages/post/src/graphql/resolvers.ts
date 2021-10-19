@@ -9,6 +9,9 @@ const Query: Resolvers["Query"] = {
   },
   async postByUser(_, { userId }, { postService }) {
     return await postService.postsByUserId(userId);
+  },
+  async postFeed(_, __, { postService, user }) {
+    return await postService.postFeed(user?.id ?? null);
   }
 };
 

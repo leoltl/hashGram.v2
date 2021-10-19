@@ -8,44 +8,49 @@ import PostLikedBy from "./PostLikedBy";
 import PostTimestamp from "./PostTimestamp";
 import PostAddComment from "./PostAddComment";
 
-// @TODO: fix type
+
 export type IPostComment = {
-  userId: string;
-  userName: string;
-  body: string;
-  timestamp: Date;
+  commenter?: {
+    id: string;
+    name: string;
+  } | null;
+  body?: string | null;
+  timestamp?: string | null;
 };
 
 interface PostSingleProps {
-  postId: string;
-  posterId: string;
-  posterName: string;
-  postImageUrl: string;
-  likesCount: number;
-  comments: IPostComment[];
-  timestamp: Date;
+  timestamp?: Date;
+  post?: {
+    postId?: string | null;
+    owner?: {
+      id: string;
+      name: string;
+    } | null
+    postImageUrl?: string | null,
+    createdAt?: Date | null
+  }
+  postInteraction?: {
+    likesCount?: number | null
+    comments?: IPostComment[] | null
+  } | null;
 }
 
 const PostSingle: React.FC<PostSingleProps> = ({ 
-  postId,
-  posterId,
-  posterName,
-  postImageUrl,
-  likesCount,
-  comments,
-  timestamp,
+  post,
+  postInteraction
 }) => {
   
-
+  if (!post || !post.postId || !post.postImageUrl) return null
+  
   return (
     <StyledPostWrapper>
-      <PostHeader    {...{ posterId, posterName }} />
-      <PostImage     {...{ postImageUrl }} />
+      <PostHeader owner={post.owner} />
+      <PostImage postImageUrl={post.postImageUrl} />
       <StyledBelowImage>
         <PostAction />
-        <PostLikedBy   {...{ likesCount }} />
-        <PostComment   {...{ comments }} />
-        <PostTimestamp {...{ timestamp }} />
+        <PostLikedBy likesCount={postInteraction?.likesCount ?? 0} />
+        <PostComment comments={postInteraction?.comments ?? []} />
+        <PostTimestamp timestamp={post.createdAt} />
       </StyledBelowImage>
       <PostAddComment />
     </StyledPostWrapper>
