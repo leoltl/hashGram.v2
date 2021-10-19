@@ -16,7 +16,8 @@
     "@leoltl/gateway": "file:packages/gateway",
     "@leoltl/infra": "file:packages/infra",
     "@leoltl/post": "file:packages/post",
-    "@leoltl/user": "file:packages/user"
+    "@leoltl/user": "file:packages/user",
+    "date-fns": "^2.25.0"
   },
   "scripts": {
     "bootstrap": "lerna bootstrap && lerna exec yarn && lerna run codegen",

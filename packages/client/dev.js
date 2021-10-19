@@ -4,6 +4,11 @@ const webpack = require('webpack')
 const webpackConfigClient = require('./webpack.config.client')
 const webpackConfigServer = require('./webpack.config.server')
 
+/**
+ * ReactError: Prop `className` did not match 
+ * caused by having source-map enable in dev mode
+ */
+
 const compiler = webpack([
   {
     ...webpackConfigClient,
