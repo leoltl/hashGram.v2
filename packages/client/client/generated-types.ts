@@ -1,10 +1,11 @@
 import { gql } from '@apollo/client';
 import * as Apollo from '@apollo/client';
 export type Maybe<T> = T | null;
+export type InputMaybe<T> = Maybe<T>;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
 export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> };
 export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Maybe<T[SubKey]> };
-const defaultOptions =  {}
+const defaultOptions = {} as const;
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
   ID: string;
@@ -25,7 +26,7 @@ export type CommentPostInteraction = {
 
 export type CommentPostResult = {
   __typename?: 'CommentPostResult';
-  comments?: Maybe<Array<Maybe<CommentPostInteraction>>>;
+  comments?: Maybe<Array<CommentPostInteraction>>;
   message?: Maybe<Scalars['String']>;
 };
 
@@ -114,7 +115,7 @@ export type PostInteraction = {
   comments?: Maybe<Array<CommentPostInteraction>>;
   commentsCount?: Maybe<Scalars['Int']>;
   createdAt?: Maybe<Scalars['String']>;
-  likes?: Maybe<Array<Maybe<LikePostInteraction>>>;
+  likes?: Maybe<Array<LikePostInteraction>>;
   likesCount?: Maybe<Scalars['Int']>;
   postId: Scalars['String'];
   updatedAt?: Maybe<Scalars['String']>;
@@ -124,8 +125,8 @@ export type Query = {
   __typename?: 'Query';
   interactionByPostId?: Maybe<PostInteraction>;
   postById?: Maybe<Post>;
-  postByUser?: Maybe<Array<Maybe<Post>>>;
-  postFeed?: Maybe<Array<Maybe<Post>>>;
+  postByUser?: Maybe<Array<Post>>;
+  postFeed?: Maybe<Array<Post>>;
   postUploadSignedUrl: Scalars['String'];
   userById?: Maybe<User>;
 };
@@ -171,17 +172,17 @@ export type SignUpInput = {
 export type User = {
   __typename?: 'User';
   email: Scalars['String'];
-  followers?: Maybe<Array<Maybe<User>>>;
-  following?: Maybe<Array<Maybe<User>>>;
+  followers?: Maybe<Array<User>>;
+  following?: Maybe<Array<User>>;
   id: Scalars['ID'];
   name: Scalars['String'];
-  posts?: Maybe<Array<Maybe<Post>>>;
+  posts?: Maybe<Array<Post>>;
 };
 
 export type Get_AllQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type Get_AllQuery = { __typename?: 'Query', postFeed?: Array<{ __typename?: 'Post', id: string, imageUrl?: string | null | undefined, createdAt?: string | null | undefined, owner?: { __typename?: 'User', id: string, name: string } | null | undefined, postInteraction?: { __typename?: 'PostInteraction', likesCount?: number | null | undefined, comments?: Array<{ __typename?: 'CommentPostInteraction', body?: string | null | undefined, timestamp?: string | null | undefined, commenter?: { __typename?: 'User', id: string, name: string } | null | undefined }> | null | undefined } | null | undefined } | null | undefined> | null | undefined };
+export type Get_AllQuery = { __typename?: 'Query', postFeed?: Array<{ __typename?: 'Post', id: string, imageUrl?: string | null | undefined, createdAt?: string | null | undefined, owner?: { __typename?: 'User', id: string, name: string } | null | undefined, postInteraction?: { __typename?: 'PostInteraction', likesCount?: number | null | undefined, comments?: Array<{ __typename?: 'CommentPostInteraction', body?: string | null | undefined, timestamp?: string | null | undefined, commenter?: { __typename?: 'User', id: string, name: string } | null | undefined }> | null | undefined } | null | undefined }> | null | undefined };
 
 
 export const Get_AllDocument = gql`

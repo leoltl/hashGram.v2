@@ -9,16 +9,16 @@
   "scripts": {
     "test": "echo \"Error: run tests from root\" && exit 1",
     "build": "tsc",
-    "start": "yarn build && node dist/index.js"
+    "start:gateway": "yarn build && node dist/index.js"
   },
   "dependencies": {
     "@apollo/federation": "^0.33.3",
     "@apollo/gateway": "^0.42.3",
     "@leoltl/infra": "file:../infra",
-    "apollo-server": "^3.4.0",
-    "apollo-server-express": "^3.4.0",
-    "express": "^4.17.1",
+    "apollo-server": "^3.6.2",
+    "apollo-server-express": "^3.6.2",
+    "express": "^4.17.2",
     "express-jwt": "^6.1.0",
-    "graphql": "^15.6.1"
+    "graphql": "^15.8.0"
   }
 }

@@ -12,28 +12,28 @@
     "start": "yarn build && node dist/index.js",
     "watch": "yarn codegen && tsc-watch --onSuccess \"node dist/index.js\"",
     "codegen": "rm -rf ./__generated__/ && yarn prisma generate && yarn graphql-codegen",
-    "db:seed": "ts-node ./prisma/seed.ts"
+    "db:seed": "ts-node ./src/database/seed.ts"
   },
   "dependencies": {
-    "@apollo/federation": "^0.33.3",
+    "@apollo/federation": "^0.33.9",
     "@leoltl/infra": "file:../infra",
-    "@prisma/client": "^3.2.1",
-    "apollo-server-core": "^3.4.0",
-    "apollo-server-express": "^3.4.0",
+    "@prisma/client": "^3.8.1",
+    "apollo-server-core": "^3.6.2",
+    "apollo-server-express": "^3.6.2",
     "bcrypt": "^5.0.1",
-    "class-transformer": "^0.4.0",
+    "class-transformer": "^0.5.1",
     "dataloader": "^2.0.0",
-    "express": "^4.17.1",
-    "graphql": "^15.6.1",
+    "express": "^4.17.2",
+    "graphql": "^15.8.0",
     "jsonwebtoken": "^8.5.1",
     "reflect-metadata": "^0.1.13",
     "uuid": "^8.3.2"
   },
   "devDependencies": {
-    "@graphql-codegen/cli": "^2.2.1",
-    "@graphql-codegen/typescript": "^2.2.4",
-    "@graphql-codegen/typescript-resolvers": "^2.3.2",
-    "prisma": "^3.2.1",
-    "ts-node": "^10.3.0"
+    "@graphql-codegen/cli": "^2.4.0",
+    "@graphql-codegen/typescript": "^2.4.2",
+    "@graphql-codegen/typescript-resolvers": "^2.4.3",
+    "prisma": "^3.8.1",
+    "ts-node": "^10.4.0"
   }
 }
