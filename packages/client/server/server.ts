@@ -1,13 +1,13 @@
-import express from 'express'
-import path from 'path';
+import express from "express";
+import path from "path";
 import fs from "fs";
-import React from 'react';
+import React from "react";
 import ReactDOMServer from "react-dom/server";
-import { createHttpLink } from 'apollo-link-http';
-import { ApolloClient, InMemoryCache } from '@apollo/client';
+import { createHttpLink } from "apollo-link-http";
+import { ApolloClient, InMemoryCache } from "@apollo/client";
 
-import { ssr as App } from './ssr';
-import { getDataFromTree } from '@apollo/client/react/ssr';
+import { ssr as App } from "./ssr";
+import { getDataFromTree } from "@apollo/client/react/ssr";
 
 import { servicesMap } from "@leoltl/infra";
 
@@ -17,22 +17,21 @@ const { GATEWAY } = servicesMap;
 
 const server = express();
 
-server.use('/', express.static(path.join(__dirname, 'static')));
+server.use("/static", express.static(path.join(__dirname, "static")));
 
 const manifest = fs.readFileSync(
-  path.join(__dirname, 'static/manifest.json'),
-  'utf-8'
+  path.join(__dirname, "static/manifest.json"),
+  "utf-8"
 );
 
 const HtmlTemplate = fs.readFileSync(
-  path.join(__dirname, ".." ,"public", "index.html"),
-  'utf-8'
+  path.join(__dirname, "..", "public", "index.html"),
+  "utf-8"
 );
 
 const assets = JSON.parse(manifest);
 
 server.use(async (request, res) => {
-
   const client = new ApolloClient({
     ssrMode: true,
     uri: `${GATEWAY.host}:${GATEWAY.port}/${GATEWAY.endpoint}`,
@@ -44,24 +43,24 @@ server.use(async (request, res) => {
 
   const context = {};
 
-  const AppRendered =  React.createElement(App, { context, request, client });
+  const AppRendered = React.createElement(App, { context, request, client });
 
   await getDataFromTree(AppRendered);
 
   const content = ReactDOMServer.renderToString(AppRendered);
 
-  const apolloInitialState = JSON.stringify(
-    client.extract()
-  ).replace(/</g, '\\u003c');
+  const apolloInitialState = JSON.stringify(client.extract()).replace(
+    /</g,
+    "\\u003c"
+  );
 
-  const html = HtmlTemplate
-    .replace("%CONTENT%", content)
-    .replace("%SCRIPT%", assets["client.js"])
+  const html = HtmlTemplate.replace("%CONTENT%", content)
+    .replace("%SCRIPT%", `/static/${assets["client.js"]}`)
     .replace("%CACHE_STATE%", apolloInitialState);
 
-  res.send(html)
+  res.send(html);
 });
 
 server.listen(PORT, () => {
-  console.log(`🚀 Server ready at http://localhost:${PORT}`)
+  console.log(`🚀 Server ready at http://localhost:${PORT}`);
 });

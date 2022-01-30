@@ -2,7 +2,8 @@ import React from "react";
 import Feed from "./pages/Feed";
 import Login from "./pages/Login";
 import "./Global.css";
-import TopNav from "./components/TopNav/TopNav";
+import { Routes, Route } from "react-router-dom";
+import Layout from "./Layout";
 
 function App() {
   React.useEffect(() => {
@@ -11,12 +12,12 @@ function App() {
   }, []);
 
   return (
-    <main>
-      {/* <TopNav /> */}
-      {/* <div style={{ height: "var(--topnav-height)" }}>ok</div> */}
-      {/* <Feed /> */}
-      <Login />
-    </main>
+    <Routes>
+      <Route path="/" element={<Layout />}>
+        <Route path="login" element={<Login />} />
+        <Route index element={<Feed />} />
+      </Route>
+    </Routes>
   );
 }
 

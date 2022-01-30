@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "@emotion/styled";
+import { Link } from "react-router-dom";
 import { Activity, Home, LogIn, NewPost, Share } from "../Icons";
 
 const TopNav = () => {
@@ -7,11 +8,15 @@ const TopNav = () => {
     <StyledNav>
       <div className="logo">#hashGram</div>
       <div className="menu">
-        <Home />
+        <Link to="/">
+          <Home />
+        </Link>
         <Share />
         <NewPost />
         <Activity />
-        <LogIn />
+        <Link to="/login">
+          <LogIn />
+        </Link>
       </div>
     </StyledNav>
   );
