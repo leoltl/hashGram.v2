@@ -27,7 +27,7 @@ const StyledAddCommentSection = styled.div`
   .post-comment-btn {
     border: none;
     background-color: white;
-    color: rgba(0,149,246, 1);
+    color: var(--colors-primary);
     font-weight: 400;
     padding: 0.3rem;
     cursor: pointer;

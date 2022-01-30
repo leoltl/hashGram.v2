@@ -1,5 +1,6 @@
 import React from "react";
 import Feed from "./pages/Feed";
+import Login from "./pages/Login";
 import "./Global.css";
 import TopNav from "./components/TopNav/TopNav";
 
@@ -11,9 +12,10 @@ function App() {
 
   return (
     <main>
-      <TopNav />
-      <div style={{ height: "var(--topnav-height)" }}>ok</div>
-      <Feed />
+      {/* <TopNav /> */}
+      {/* <div style={{ height: "var(--topnav-height)" }}>ok</div> */}
+      {/* <Feed /> */}
+      <Login />
     </main>
   );
 }

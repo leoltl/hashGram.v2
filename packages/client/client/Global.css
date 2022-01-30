@@ -2,7 +2,7 @@
 @import url("./reset.css");
 
 body[data-theme="light"] {
-  --colors-primary: deeppink;
+  --colors-primary: rgba(0, 149, 246, 1);
   --colors-background: white;
   --colors-border: rgba(219, 219, 219, 1);
 }
@@ -20,6 +20,8 @@ body[data-theme="dark"] {
   --topnav-height: 60px;
   --padding-sm: 5px;
   --padding-md: 12.5px;
+  --padding-lg: 24px;
+  --padding-xl: 36px;
   box-sizing: border-box;
   font-size: 16px;
 }
